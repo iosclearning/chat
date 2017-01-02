@@ -6,13 +6,13 @@
 //  Copyright © 2017 api. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "ChatViewController.h"
 
-@interface ViewController ()
+@interface ChatViewController ()
 
 @end
 
-@implementation ViewController
+@implementation ChatViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
