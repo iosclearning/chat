@@ -7,9 +7,9 @@
 //
 
 
-#import "User.h"
+#import "Contact.h"
 
-@implementation User : NSObject
+@implementation Contact : NSObject
 
 
 @end
