@@ -15,6 +15,8 @@
 		C1E6CEE81E1AFFB60006A7B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1E6CEE71E1AFFB60006A7B3 /* Assets.xcassets */; };
 		C1E6CEEB1E1AFFB60006A7B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1E6CEE91E1AFFB60006A7B3 /* LaunchScreen.storyboard */; };
 		C1E6CEF51E1B12130006A7B3 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E6CEF41E1B12130006A7B3 /* Contact.m */; };
+		F46067BF1E1D3689000FFD2C /* LogInController.m in Sources */ = {isa = PBXBuildFile; fileRef = F46067BE1E1D3689000FFD2C /* LogInController.m */; };
+		F46067C31E1D4041000FFD2C /* SignUpController.m in Sources */ = {isa = PBXBuildFile; fileRef = F46067C21E1D4041000FFD2C /* SignUpController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,10 @@
 		C1E6CEEC1E1AFFB60006A7B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C1E6CEF31E1B12130006A7B3 /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
 		C1E6CEF41E1B12130006A7B3 /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
+		F46067BD1E1D3689000FFD2C /* LogInController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInController.h; sourceTree = "<group>"; };
+		F46067BE1E1D3689000FFD2C /* LogInController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInController.m; sourceTree = "<group>"; };
+		F46067C11E1D4041000FFD2C /* SignUpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpController.h; sourceTree = "<group>"; };
+		F46067C21E1D4041000FFD2C /* SignUpController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +120,8 @@
 		C1E6CEFA1E1BFAF80006A7B3 /* Controler */ = {
 			isa = PBXGroup;
 			children = (
+				F46067C01E1D402D000FFD2C /* SignUp */,
+				F46067BC1E1D3675000FFD2C /* LogIn */,
 				C168A2111E1C07DC00A93B8B /* Table */,
 				C168A2101E1C07C800A93B8B /* Chat */,
 			);
@@ -127,6 +135,24 @@
 				C1E6CEE91E1AFFB60006A7B3 /* LaunchScreen.storyboard */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		F46067BC1E1D3675000FFD2C /* LogIn */ = {
+			isa = PBXGroup;
+			children = (
+				F46067BD1E1D3689000FFD2C /* LogInController.h */,
+				F46067BE1E1D3689000FFD2C /* LogInController.m */,
+			);
+			name = LogIn;
+			sourceTree = "<group>";
+		};
+		F46067C01E1D402D000FFD2C /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				F46067C11E1D4041000FFD2C /* SignUpController.h */,
+				F46067C21E1D4041000FFD2C /* SignUpController.m */,
+			);
+			name = SignUp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,9 +226,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F46067C31E1D4041000FFD2C /* SignUpController.m in Sources */,
 				C168A20F1E1C075F00A93B8B /* ContactTableViewController.m in Sources */,
 				C1E6CEF51E1B12130006A7B3 /* Contact.m in Sources */,
 				C1E6CEE31E1AFFB60006A7B3 /* ChatViewController.m in Sources */,
+				F46067BF1E1D3689000FFD2C /* LogInController.m in Sources */,
 				C1E6CEE01E1AFFB60006A7B3 /* AppDelegate.m in Sources */,
 				C1E6CEDD1E1AFFB60006A7B3 /* main.m in Sources */,
 			);
