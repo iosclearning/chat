@@ -36,12 +36,17 @@
 }
 
 - (IBAction)LoginButtonTouchUpInside:(id)sender {
-    [self Rest];
-    bool email = [self CheckEmail];
-    bool password = [self CheckPassword];
-    if(email == true && password == true) {
+    // Login needs to be fixed
+    // If wronf credentials (or none),app is failing
+    // If login successful Rest method is failing
+    
+    //[self Rest];
+    //bool email = [self CheckEmail];
+    //bool password = [self CheckPassword];
+    //if(email == true && password == true)
+    //{
         [self LogIn];
-    }
+    //}
 }
 
 -(bool) CheckEmail {
