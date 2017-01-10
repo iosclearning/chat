@@ -36,31 +36,27 @@
 }
 
 - (IBAction)LoginButtonTouchUpInside:(id)sender {
-    // Login needs to be fixed
-    // If wronf credentials (or none),app is failing
-    // If login successful Rest method is failing
-    
     //[self Rest];
-    //bool email = [self CheckEmail];
-    //bool password = [self CheckPassword];
-    //if(email == true && password == true)
-    //{
+    bool email = [self CheckEmail];
+    bool password = [self CheckPassword];
+    if(email == true && password == true) {
         [self LogIn];
-    //}
+    }
 }
 
 -(bool) CheckEmail {
-    if ([self.response objectForKey:self.EmailTextField.text]) {
-        self.EmailError.text = @"";
-        return true;
-    } else {
+    //if (self.EmailTextField.text.length < 1 && [self.response objectForKey:self.EmailTextField.text]) {
+    if (self.EmailTextField.text.length < 1 && ![self.EmailTextField.text isEqual:@"anelmemija@gmail.com"]) {
         self.EmailError.text = @"Incorrect email";
         return false;
+    } else {
+        self.EmailError.text = @"";
+        return true;
     }
 }
 
 -(bool) CheckPassword {
-    if(![self.PasswordTextField.text isEqual: @"password"]) {
+    if(self.PasswordTextField.text.length < 1 && ![self.PasswordTextField.text isEqual: @"password"]) {
         self.PasswordError.text = @"Incorrect password";
         return false;
     } else {
