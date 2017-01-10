@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D32722D1E2430C800A19FF9 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5D32722C1E2430C800A19FF9 /* Settings.bundle */; };
 		C168A20F1E1C075F00A93B8B /* ContactTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C168A20E1E1C075F00A93B8B /* ContactTableViewController.m */; };
 		C168A2141E1C137A00A93B8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C168A2121E1C137A00A93B8B /* Main.storyboard */; };
+		C189B3B81E244FA500B5E8B8 /* darthvader.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C189B3B51E244FA500B5E8B8 /* darthvader.jpg */; };
+		C189B3B91E244FA500B5E8B8 /* obiwan.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C189B3B61E244FA500B5E8B8 /* obiwan.jpg */; };
+		C189B3BA1E244FA500B5E8B8 /* windu.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C189B3B71E244FA500B5E8B8 /* windu.jpg */; };
 		C1E6CEDD1E1AFFB60006A7B3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E6CEDC1E1AFFB60006A7B3 /* main.m */; };
 		C1E6CEE01E1AFFB60006A7B3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E6CEDF1E1AFFB60006A7B3 /* AppDelegate.m */; };
 		C1E6CEE31E1AFFB60006A7B3 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E6CEE21E1AFFB60006A7B3 /* ChatViewController.m */; };
@@ -20,9 +24,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5D32722C1E2430C800A19FF9 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		C168A20D1E1C075F00A93B8B /* ContactTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactTableViewController.h; sourceTree = "<group>"; };
 		C168A20E1E1C075F00A93B8B /* ContactTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactTableViewController.m; sourceTree = "<group>"; };
 		C168A2131E1C137A00A93B8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C189B3B51E244FA500B5E8B8 /* darthvader.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = darthvader.jpg; sourceTree = "<group>"; };
+		C189B3B61E244FA500B5E8B8 /* obiwan.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = obiwan.jpg; sourceTree = "<group>"; };
+		C189B3B71E244FA500B5E8B8 /* windu.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = windu.jpg; sourceTree = "<group>"; };
 		C1E6CED81E1AFFB60006A7B3 /* ApiMobileChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ApiMobileChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1E6CEDC1E1AFFB60006A7B3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C1E6CEDE1E1AFFB60006A7B3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -69,6 +77,16 @@
 			name = Table;
 			sourceTree = "<group>";
 		};
+		C189B3AE1E24403B00B5E8B8 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				C189B3B51E244FA500B5E8B8 /* darthvader.jpg */,
+				C189B3B61E244FA500B5E8B8 /* obiwan.jpg */,
+				C189B3B71E244FA500B5E8B8 /* windu.jpg */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		C1E6CECF1E1AFFB60006A7B3 = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +110,7 @@
 				C1E6CEFA1E1BFAF80006A7B3 /* Controler */,
 				C1E6CEF21E1B0D0A0006A7B3 /* Model */,
 				C1E6CEDB1E1AFFB60006A7B3 /* Supporting Files */,
+				5D32722C1E2430C800A19FF9 /* Settings.bundle */,
 			);
 			path = ApiMobileChat;
 			sourceTree = "<group>";
@@ -99,6 +118,7 @@
 		C1E6CEDB1E1AFFB60006A7B3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C189B3AE1E24403B00B5E8B8 /* Images */,
 				C1E6CEDE1E1AFFB60006A7B3 /* AppDelegate.h */,
 				C1E6CEDF1E1AFFB60006A7B3 /* AppDelegate.m */,
 				C1E6CEE71E1AFFB60006A7B3 /* Assets.xcassets */,
@@ -213,9 +233,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D32722D1E2430C800A19FF9 /* Settings.bundle in Resources */,
 				C168A2141E1C137A00A93B8B /* Main.storyboard in Resources */,
+				C189B3BA1E244FA500B5E8B8 /* windu.jpg in Resources */,
 				C1E6CEEB1E1AFFB60006A7B3 /* LaunchScreen.storyboard in Resources */,
+				C189B3B81E244FA500B5E8B8 /* darthvader.jpg in Resources */,
 				C1E6CEE81E1AFFB60006A7B3 /* Assets.xcassets in Resources */,
+				C189B3B91E244FA500B5E8B8 /* obiwan.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

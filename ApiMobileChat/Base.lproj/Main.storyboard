@@ -19,9 +19,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y34-Lg-uW2">
-                                <frame key="frameInset" minX="164" minY="318" width="46" height="30"/>
+                                <frame key="frameInset" minX="16" minY="72" width="62" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Contacts"/>
                                 <connections>
                                     <segue destination="6U0-3r-A75" kind="show" id="C1S-Di-qUQ"/>
                                 </connections>
@@ -138,20 +138,21 @@
             </objects>
             <point key="canvasLocation" x="-1522" y="10"/>
         </scene>
-        <!--Contact Table View Controller-->
+        <!--Contacts-->
         <scene sceneID="7sb-dS-G9v">
             <objects>
                 <tableViewController id="6U0-3r-A75" customClass="ContactTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="C5r-Ae-eCd">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="40" sectionHeaderHeight="28" sectionFooterHeight="28" id="C5r-Ae-eCd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="scrollIndicatorInsets" minX="0.0" minY="31" maxX="0.0" maxY="0.0"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="RjP-nR-M5g">
-                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="40" id="RjP-nR-M5g">
+                                <rect key="frame" x="0.0" y="92" width="375" height="40"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RjP-nR-M5g" id="CFj-eN-Vhv">
-                                    <frame key="frameInset" width="375" height="44"/>
+                                    <frame key="frameInset" width="375" height="39"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -161,11 +162,11 @@
                             <outlet property="delegate" destination="6U0-3r-A75" id="WRL-9w-1O7"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="fZe-qK-14V"/>
+                    <navigationItem key="navigationItem" title="Contacts" id="fZe-qK-14V"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rjh-5k-FHk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1756" y="9"/>
+            <point key="canvasLocation" x="1756" y="8.5457271364317844"/>
         </scene>
         <!--Log In Controller-->
         <scene sceneID="97V-VT-hna">
@@ -200,6 +201,7 @@
                                 <frame key="frameInset" minX="75" minY="251" width="200" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                 <connections>
                                     <action selector="PasswordTextFieldChange:" destination="Fqj-yL-D2J" eventType="editingDidEnd" id="NFP-tT-UF9"/>
