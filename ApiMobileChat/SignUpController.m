@@ -18,7 +18,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.EnterEmailError.text= @"";
     self.ConfirmPasswordErrorLabel.text = @"";
+    self.EnterPasswordError.text = @"";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -27,9 +29,55 @@
 }
 
 - (IBAction)SignUpButtonTouchUpInside:(id)sender {
-    bool confirmPassword = [self ConfirmPassword];
-    if(confirmPassword == true) {
-        [self SignUp];
+    bool confirmEmailNotEmpty = [self CheckEmailEmpty];
+    bool confirmEmailregex = [self CheckEmailRegex:self.EnterEmailTextField.text];
+    if(confirmEmailNotEmpty == true && confirmEmailregex == true) {
+        bool confirmPasswordNotEmpty = [self CheckPasswordEmpty];
+        bool confirmPasswordConfirmNotEmpty = [self CheckConfirmPasswordEmpty];
+        if(confirmPasswordNotEmpty == true && confirmPasswordConfirmNotEmpty == true) {
+            bool confirmPassword = [self ConfirmPassword];
+            if(confirmPassword == true) {
+                [self SignUp];
+            }
+        }
+    } else if (confirmEmailregex == false) {
+        self.EnterEmailError.text = @"Provide correct email.";
+    }
+}
+
+-(bool) CheckEmailEmpty {
+    if(self.EnterEmailTextField.text.length < 1) {
+        self.EnterEmailError.text = @"Provide correct email.";
+        return false;
+    } else {
+        self.EnterEmailError.text = @"";
+        return true;
+    }
+}
+
+-(bool) CheckEmailRegex:(NSString *) email {
+    NSString *emailRegex = @"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    NSPredicate *emailCheck = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailCheck evaluateWithObject:email];
+}
+
+-(bool) CheckPasswordEmpty {
+    if(self.EnterPasswordTextField.text.length < 1) {
+        self.EnterPasswordError.text = @"Provide correct password.";
+        return false;
+    } else {
+        self.EnterPasswordError.text = @"";
+        return true;
+    }
+}
+
+-(bool) CheckConfirmPasswordEmpty {
+    if(self.ConfirmPasswordTextField.text.length < 1) {
+        self.ConfirmPasswordErrorLabel.text = @"Provide correct password.";
+        return false;
+    } else {
+        self.ConfirmPasswordErrorLabel.text = @"";
+        return true;
     }
 }
 
