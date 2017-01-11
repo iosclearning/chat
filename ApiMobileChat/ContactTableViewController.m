@@ -44,7 +44,6 @@ static NSString *pCellIdentifier = @"Cell";
     contact3.image = @"windu.jpg";
     
     self.contacts = [[NSMutableArray alloc] initWithObjects:contact1,contact2,contact3,nil];
-    self.tableView.contentInset = UIEdgeInsetsMake(100, 0, 0, 0);
     
 }
 
