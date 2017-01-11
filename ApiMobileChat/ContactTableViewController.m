@@ -21,29 +21,30 @@ static NSString *pCellIdentifier = @"Cell";
 {
     [super viewDidLoad];
     
+    // For testing purpose, create test data
     Contact *contact1 = [[Contact alloc]init];
+    contact1.userId = 1;
     contact1.firstName = @"Darth";
     contact1.lastName = @"Vader";
     contact1.userName = @"DV";
-    contact1.userId = 1;
-    contact1.image = [self getImageByName :@"darthvader.jpg"];
-    //[getImageByName(@"darthvader.jpg")];
+    contact1.image = @"darthvader.jpg";
     
     Contact *contact2 = [[Contact alloc]init];
+    contact2.userId = 2;
     contact2.firstName = @"Obi-Wan";
     contact2.lastName = @"Kenobi";
     contact2.userName = @"OWK";
-    contact2.image = [self getImageByName :@"obiwan.jpg"];
-    contact2.userId = 2;
+    contact2.image = @"obiwan.jpg";
     
     Contact *contact3 = [[Contact alloc]init];
+    contact3.userId = 3;
     contact3.firstName = @"Mace";
     contact3.lastName = @"Windu";
     contact3.userName = @"MV";
-    contact3.image = [self getImageByName :@"windu.jpg"];
-    contact3.userId = 3;
+    contact3.image = @"windu.jpg";
     
     self.contacts = [[NSMutableArray alloc] initWithObjects:contact1,contact2,contact3,nil];
+    self.tableView.contentInset = UIEdgeInsetsMake(100, 0, 0, 0);
     
 }
 
@@ -66,7 +67,6 @@ static NSString *pCellIdentifier = @"Cell";
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -91,7 +91,7 @@ static NSString *pCellIdentifier = @"Cell";
     
     Contact *contact = [self.contacts objectAtIndex:indexPath.row];
     cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", contact.firstName, contact.lastName];
-    cell.imageView.image = contact.image;
+    cell.imageView.image = [self getImageByName : contact.image];
     
     return cell;
 }
