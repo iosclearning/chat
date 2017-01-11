@@ -45,9 +45,30 @@
 }
 
 -(bool) CheckEmail {
-    //if (self.EmailTextField.text.length < 1 && [self.response objectForKey:self.EmailTextField.text]) {
-    if (self.EmailTextField.text.length < 1 && ![self.EmailTextField.text isEqual:@"anelmemija@gmail.com"]) {
-        self.EmailError.text = @"Incorrect email";
+    bool emailEmtpty = [self CheckEmailEmpty];
+    if(emailEmtpty == true) {
+        bool emailRegex = [self CheckEmailRegex:self.EmailTextField.text];
+        if(emailRegex == true) {
+            //if (![self.response objectForKey:self.EmailTextField.text]) {
+            if (![self.EmailTextField.text isEqual:@"anelmemija@gmail.com"]) {
+                self.EmailError.text = @"Incorrect email.";
+                return false;
+            } else {
+                self.EmailError.text = @"";
+                return true;
+            }
+        } else {
+            self.EmailError.text = @"Incorrect email format.";
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+-(bool) CheckEmailEmpty {
+    if(self.EmailTextField.text.length < 1) {
+        self.EmailError.text = @"Provide correct email.";
         return false;
     } else {
         self.EmailError.text = @"";
@@ -55,9 +76,30 @@
     }
 }
 
+-(bool) CheckEmailRegex:(NSString *) email {
+    NSString *emailRegex = @"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    NSPredicate *emailCheck = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailCheck evaluateWithObject:email];
+}
+
 -(bool) CheckPassword {
-    if(self.PasswordTextField.text.length < 1 && ![self.PasswordTextField.text isEqual: @"password"]) {
-        self.PasswordError.text = @"Incorrect password";
+    bool passwordEmpty = [self CheckPasswordEmpty];
+    if(passwordEmpty == true) {
+        if(![self.PasswordTextField.text isEqual: @"password"]) {
+            self.PasswordError.text = @"Incorrect password.";
+            return false;
+        } else {
+            self.PasswordError.text = @"";
+            return true;
+        }
+    } else {
+        return false;
+    }
+}
+
+-(bool) CheckPasswordEmpty {
+    if(self.PasswordTextField.text.length < 1) {
+        self.PasswordError.text = @"Provide correct password.";
         return false;
     } else {
         self.PasswordError.text = @"";
