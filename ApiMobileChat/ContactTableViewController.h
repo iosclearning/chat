@@ -10,7 +10,7 @@
 #import "Contact.h"
 
 @interface ContactTableViewController : UITableViewController
-@property (strong,nonatomic) NSMutableArray *contacts;
 
+@property (strong,nonatomic) NSMutableArray *contacts;
 
 @end

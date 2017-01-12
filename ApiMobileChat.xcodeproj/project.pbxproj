@@ -10,6 +10,7 @@
 		5D32722D1E2430C800A19FF9 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5D32722C1E2430C800A19FF9 /* Settings.bundle */; };
 		C168A20F1E1C075F00A93B8B /* ContactTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C168A20E1E1C075F00A93B8B /* ContactTableViewController.m */; };
 		C168A2141E1C137A00A93B8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C168A2121E1C137A00A93B8B /* Main.storyboard */; };
+		C16FD08E1E26ECD000A2897E /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C16FD08D1E26ECD000A2897E /* MainViewController.m */; };
 		C189B3B81E244FA500B5E8B8 /* darthvader.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C189B3B51E244FA500B5E8B8 /* darthvader.jpg */; };
 		C189B3B91E244FA500B5E8B8 /* obiwan.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C189B3B61E244FA500B5E8B8 /* obiwan.jpg */; };
 		C189B3BA1E244FA500B5E8B8 /* windu.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C189B3B71E244FA500B5E8B8 /* windu.jpg */; };
@@ -28,6 +29,8 @@
 		C168A20D1E1C075F00A93B8B /* ContactTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactTableViewController.h; sourceTree = "<group>"; };
 		C168A20E1E1C075F00A93B8B /* ContactTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactTableViewController.m; sourceTree = "<group>"; };
 		C168A2131E1C137A00A93B8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C16FD08C1E26ECD000A2897E /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		C16FD08D1E26ECD000A2897E /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		C189B3B51E244FA500B5E8B8 /* darthvader.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = darthvader.jpg; sourceTree = "<group>"; };
 		C189B3B61E244FA500B5E8B8 /* obiwan.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = obiwan.jpg; sourceTree = "<group>"; };
 		C189B3B71E244FA500B5E8B8 /* windu.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = windu.jpg; sourceTree = "<group>"; };
@@ -75,6 +78,15 @@
 				C168A20E1E1C075F00A93B8B /* ContactTableViewController.m */,
 			);
 			name = Table;
+			sourceTree = "<group>";
+		};
+		C16FD08B1E26ECBC00A2897E /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				C16FD08C1E26ECD000A2897E /* MainViewController.h */,
+				C16FD08D1E26ECD000A2897E /* MainViewController.m */,
+			);
+			name = Main;
 			sourceTree = "<group>";
 		};
 		C189B3AE1E24403B00B5E8B8 /* Images */ = {
@@ -140,6 +152,7 @@
 		C1E6CEFA1E1BFAF80006A7B3 /* Controler */ = {
 			isa = PBXGroup;
 			children = (
+				C16FD08B1E26ECBC00A2897E /* Main */,
 				F46067C01E1D402D000FFD2C /* SignUp */,
 				F46067BC1E1D3675000FFD2C /* LogIn */,
 				C168A2111E1C07DC00A93B8B /* Table */,
@@ -253,6 +266,7 @@
 				F46067C31E1D4041000FFD2C /* SignUpController.m in Sources */,
 				C168A20F1E1C075F00A93B8B /* ContactTableViewController.m in Sources */,
 				C1E6CEF51E1B12130006A7B3 /* Contact.m in Sources */,
+				C16FD08E1E26ECD000A2897E /* MainViewController.m in Sources */,
 				C1E6CEE31E1AFFB60006A7B3 /* ChatViewController.m in Sources */,
 				F46067BF1E1D3689000FFD2C /* LogInController.m in Sources */,
 				C1E6CEE01E1AFFB60006A7B3 /* AppDelegate.m in Sources */,

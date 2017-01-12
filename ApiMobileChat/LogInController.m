@@ -7,7 +7,7 @@
 //
 
 #import "LogInController.h"
-#import "ChatViewController.h"
+#import "MainViewController.h"
 
 @interface LogInController ()
 
@@ -36,68 +36,90 @@
 }
 
 - (IBAction)LoginButtonTouchUpInside:(id)sender {
-    //[self Rest];
+    //[self Rest]; - uncomment after setting rest service locally. it is located on git
+    
     bool email = [self CheckEmail];
     bool password = [self CheckPassword];
-    if(email == true && password == true) {
+    
+    if(email == true && password == true)
+    {
         [self LogIn];
     }
 }
 
--(bool) CheckEmail {
+-(bool) CheckEmail
+{
     bool emailEmtpty = [self CheckEmailEmpty];
-    if(emailEmtpty == true) {
+    if(emailEmtpty == true)
+    {
         bool emailRegex = [self CheckEmailRegex:self.EmailTextField.text];
-        if(emailRegex == true) {
-            //if (![self.response objectForKey:self.EmailTextField.text]) {
-            if (![self.EmailTextField.text isEqual:@"anelmemija@gmail.com"]) {
+        if(emailRegex == true)
+        {
+            if (![self.EmailTextField.text isEqual:@"anelmemija@gmail.com"])
+            {
                 self.EmailError.text = @"Incorrect email.";
                 return false;
-            } else {
+            } else
+            {
                 self.EmailError.text = @"";
                 return true;
             }
-        } else {
+        } else
+        {
             self.EmailError.text = @"Incorrect email format.";
             return false;
         }
-    } else {
+    }
+    else
+    {
         return false;
     }
 }
 
--(bool) CheckEmailEmpty {
-    if(self.EmailTextField.text.length < 1) {
+-(bool) CheckEmailEmpty
+{
+    if(self.EmailTextField.text.length < 1)
+    {
         self.EmailError.text = @"Provide correct email.";
         return false;
-    } else {
+    }
+    else
+    {
         self.EmailError.text = @"";
         return true;
     }
 }
 
--(bool) CheckEmailRegex:(NSString *) email {
+-(bool) CheckEmailRegex:(NSString *) email
+{
     NSString *emailRegex = @"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
     NSPredicate *emailCheck = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     return [emailCheck evaluateWithObject:email];
 }
 
--(bool) CheckPassword {
+-(bool) CheckPassword
+{
     bool passwordEmpty = [self CheckPasswordEmpty];
-    if(passwordEmpty == true) {
-        if(![self.PasswordTextField.text isEqual: @"password"]) {
+    if(passwordEmpty == true)
+    {
+        if(![self.PasswordTextField.text isEqual: @"password"])
+        {
             self.PasswordError.text = @"Incorrect password.";
             return false;
-        } else {
+        }
+        else
+        {
             self.PasswordError.text = @"";
             return true;
         }
-    } else {
+    } else
+    {
         return false;
     }
 }
 
--(bool) CheckPasswordEmpty {
+-(bool) CheckPasswordEmpty
+{
     if(self.PasswordTextField.text.length < 1) {
         self.PasswordError.text = @"Provide correct password.";
         return false;
@@ -107,21 +129,21 @@
     }
 }
 
--(void) LogIn {
+-(void) LogIn
+{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ChatViewController *controller = (ChatViewController *)[storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
-    [self.navigationController presentViewController:controller animated:YES completion:NULL];
+    MainViewController *controller = (MainViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MainViewBoard"];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
--(void) Rest {
+-(void) Rest
+{
     NSString *url = @"http://localhost:5000/api/values";
     NSURLSession *session = [NSURLSession sharedSession];
-    [[session dataTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        //NSLog(@"Response %@", response);
-        //NSLog(@"Data %@", data);
-        //NSLog(@"Error %@", error);
+    
+    [[session dataTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
+    {
         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-        //NSLog(@"Dictionary %@", dictionary);
         self.response = dictionary;
     }] resume];
 }
