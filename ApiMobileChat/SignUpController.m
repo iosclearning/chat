@@ -29,25 +29,38 @@
 }
 
 - (IBAction)SignUpButtonTouchUpInside:(id)sender {
-    bool confirmEmailNotEmpty = [self CheckEmailEmpty];
-    bool confirmEmailregex = [self CheckEmailRegex:self.EnterEmailTextField.text];
-    if(confirmEmailNotEmpty == true && confirmEmailregex == true) {
-        bool confirmPasswordNotEmpty = [self CheckPasswordEmpty];
-        bool confirmPasswordConfirmNotEmpty = [self CheckConfirmPasswordEmpty];
-        if(confirmPasswordNotEmpty == true && confirmPasswordConfirmNotEmpty == true) {
-            bool confirmPassword = [self ConfirmPassword];
-            if(confirmPassword == true) {
-                [self SignUp];
+    bool isEmailEmpty = [self CheckEmailEmpty];
+    if(isEmailEmpty == true) {
+        bool isEmailRegexValid = [self ValidateEmailRegex];
+        if(isEmailRegexValid == true) {
+            bool isPasswordEmpty = [self CheckPasswordEmpty];
+            if(isPasswordEmpty == true) {
+                bool isConfirmPasswordEmpty = [self CheckConfirmPasswordEmpty];
+                if(isConfirmPasswordEmpty == true) {
+                    bool arePasswordsTheSame = [self ConfirmPassword];
+                    if(arePasswordsTheSame == true) {
+                        [self SignUp];
+                    }
+                }
             }
         }
-    } else if (confirmEmailregex == false) {
-        self.EnterEmailError.text = @"Provide correct email.";
     }
 }
 
 -(bool) CheckEmailEmpty {
     if(self.EnterEmailTextField.text.length < 1) {
         self.EnterEmailError.text = @"Provide correct email.";
+        return false;
+    } else {
+        self.EnterEmailError.text = @"";
+        return true;
+    }
+}
+
+-(bool) ValidateEmailRegex {
+    bool isEmailRegex = [self CheckEmailRegex:self.EnterEmailTextField.text];
+    if(isEmailRegex == false) {
+        self.EnterEmailError.text = @"Incorrect email format.";
         return false;
     } else {
         self.EnterEmailError.text = @"";

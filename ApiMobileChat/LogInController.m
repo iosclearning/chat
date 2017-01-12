@@ -7,7 +7,7 @@
 //
 
 #import "LogInController.h"
-#import "MainViewController.h"
+#import "ChatViewController.h"
 
 @interface LogInController ()
 
@@ -36,90 +36,94 @@
 }
 
 - (IBAction)LoginButtonTouchUpInside:(id)sender {
-    //[self Rest]; - uncomment after setting rest service locally. it is located on git
-    
-    bool email = [self CheckEmail];
-    bool password = [self CheckPassword];
-    
-    if(email == true && password == true)
-    {
+    // TODO
+    // Implement Rest.
+    //[self Rest];
+    bool isEmailValid = [self ValidateEmail];
+    bool isPasswordValid = [self ValidatePassword];
+    if(isEmailValid == true && isPasswordValid == true) {
         [self LogIn];
     }
 }
 
--(bool) CheckEmail
-{
-    bool emailEmtpty = [self CheckEmailEmpty];
-    if(emailEmtpty == true)
-    {
-        bool emailRegex = [self CheckEmailRegex:self.EmailTextField.text];
-        if(emailRegex == true)
-        {
-            if (![self.EmailTextField.text isEqual:@"anelmemija@gmail.com"])
-            {
-                self.EmailError.text = @"Incorrect email.";
-                return false;
-            } else
-            {
-                self.EmailError.text = @"";
-                return true;
-            }
-        } else
-        {
-            self.EmailError.text = @"Incorrect email format.";
+-(bool) ValidateEmail {
+    bool isEmailEmpty = [self CheckEmailEmpty];
+    if(isEmailEmpty == true) {
+        bool isEmailRegexValid = [self ValidateEmailRegex];
+        if(isEmailRegexValid == true) {
+            // TODO
+            // Implement Rest.
+            //bool isEmailCorrect = [self CheckEmail];
+            //if(isEmailCorrect == true) {
+                //return true;
+            //} else {
+                //return false;
+            //}
+            return true;
+        } else {
             return false;
         }
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
 
--(bool) CheckEmailEmpty
-{
-    if(self.EmailTextField.text.length < 1)
-    {
+-(bool) CheckEmailEmpty {
+    if(self.EmailTextField.text.length < 1) {
         self.EmailError.text = @"Provide correct email.";
         return false;
-    }
-    else
-    {
+    } else {
         self.EmailError.text = @"";
         return true;
     }
 }
 
--(bool) CheckEmailRegex:(NSString *) email
-{
+-(bool) ValidateEmailRegex {
+    bool isEmailRegex = [self CheckEmailRegex:self.EmailTextField.text];
+    if(isEmailRegex == false) {
+        self.EmailError.text = @"Incorrect email format.";
+        return false;
+    } else {
+        self.EmailError.text = @"";
+        return true;
+    }
+}
+
+-(bool) CheckEmailRegex:(NSString *) email {
     NSString *emailRegex = @"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
     NSPredicate *emailCheck = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     return [emailCheck evaluateWithObject:email];
 }
 
--(bool) CheckPassword
-{
-    bool passwordEmpty = [self CheckPasswordEmpty];
-    if(passwordEmpty == true)
-    {
-        if(![self.PasswordTextField.text isEqual: @"password"])
-        {
-            self.PasswordError.text = @"Incorrect password.";
-            return false;
-        }
-        else
-        {
-            self.PasswordError.text = @"";
-            return true;
-        }
-    } else
-    {
+-(bool) CheckEmail {
+    //if (![self.response objectForKey:self.EmailTextField.text]) {
+    if (![self.EmailTextField.text isEqual:@"username@api.com"]) {
+        self.EmailError.text = @"Incorrect email.";
+        return false;
+    } else {
+        self.EmailError.text = @"";
+        return true;
+    }
+}
+
+-(bool) ValidatePassword {
+    bool isPasswordEmpty = [self CheckPasswordEmpty];
+    if(isPasswordEmpty == true) {
+        // TODO
+        // Implement Rest.
+        //bool isPasswordCorrect = [self CheckPassword];
+        //if(isPasswordCorrect == true) {
+            //return true;
+        //} else {
+            //return false;
+        //}
+        return true;
+    } else {
         return false;
     }
 }
 
--(bool) CheckPasswordEmpty
-{
+-(bool) CheckPasswordEmpty {
     if(self.PasswordTextField.text.length < 1) {
         self.PasswordError.text = @"Provide correct password.";
         return false;
@@ -129,21 +133,31 @@
     }
 }
 
--(void) LogIn
-{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    MainViewController *controller = (MainViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MainViewBoard"];
-    [self.navigationController pushViewController:controller animated:YES];
+-(bool) CheckPassword {
+    if(![self.PasswordTextField.text isEqual: @"pass"]) {
+        self.PasswordError.text = @"Incorrect password.";
+        return false;
+    } else {
+        self.PasswordError.text = @"";
+        return true;
+    }
 }
 
--(void) Rest
-{
+-(void) LogIn {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ChatViewController *controller = (ChatViewController *)[storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
+    [self.navigationController presentViewController:controller animated:YES completion:NULL];
+}
+
+-(void) Rest {
     NSString *url = @"http://localhost:5000/api/values";
     NSURLSession *session = [NSURLSession sharedSession];
-    
-    [[session dataTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
-    {
+    [[session dataTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        //NSLog(@"Response %@", response);
+        //NSLog(@"Data %@", data);
+        //NSLog(@"Error %@", error);
         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+        //NSLog(@"Dictionary %@", dictionary);
         self.response = dictionary;
     }] resume];
 }
