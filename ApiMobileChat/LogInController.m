@@ -6,7 +6,7 @@
 //  Copyright © 2017 api. All rights reserved.
 //
 
-#import "LogInController.h"
+#import "MainViewController.h"
 #import "ChatViewController.h"
 
 @interface LogInController ()
@@ -145,7 +145,7 @@
 
 -(void) LogIn {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ChatViewController *controller = (ChatViewController *)[storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
+    ChatViewController *controller = (MainViewController *)[storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
     [self.navigationController presentViewController:controller animated:YES completion:NULL];
 }
 
