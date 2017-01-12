@@ -6,8 +6,8 @@
 //  Copyright © 2017 api. All rights reserved.
 //
 
+#import "LogInController.h"
 #import "MainViewController.h"
-#import "ChatViewController.h"
 
 @interface LogInController ()
 
