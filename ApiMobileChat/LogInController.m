@@ -145,8 +145,8 @@
 
 -(void) LogIn {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ChatViewController *controller = (MainViewController *)[storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
-    [self.navigationController presentViewController:controller animated:YES completion:NULL];
+    MainViewController *controller = (MainViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MainViewBoard"];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 -(void) Rest {
