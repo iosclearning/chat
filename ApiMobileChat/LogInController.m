@@ -48,13 +48,13 @@
 
 -(bool) ValidateEmail {
     bool isEmailEmpty = [self CheckEmailEmpty];
-    if(isEmailEmpty == true) {
+    if(!isEmailEmpty) {
         bool isEmailRegexValid = [self ValidateEmailRegex];
-        if(isEmailRegexValid == true) {
+        if(isEmailRegexValid) {
             // TODO
             // Implement Rest.
             //bool isEmailCorrect = [self CheckEmail];
-            //if(isEmailCorrect == true) {
+            //if(isEmailCorrect) {
                 //return true;
             //} else {
                 //return false;
@@ -71,10 +71,10 @@
 -(bool) CheckEmailEmpty {
     if(self.EmailTextField.text.length < 1) {
         self.EmailError.text = @"Provide correct email.";
-        return false;
+        return true;
     } else {
         self.EmailError.text = @"";
-        return true;
+        return false;
     }
 }
 
@@ -108,11 +108,11 @@
 
 -(bool) ValidatePassword {
     bool isPasswordEmpty = [self CheckPasswordEmpty];
-    if(isPasswordEmpty == true) {
+    if(!isPasswordEmpty) {
         // TODO
         // Implement Rest.
         //bool isPasswordCorrect = [self CheckPassword];
-        //if(isPasswordCorrect == true) {
+        //if(isPasswordCorrect) {
             //return true;
         //} else {
             //return false;
@@ -126,15 +126,15 @@
 -(bool) CheckPasswordEmpty {
     if(self.PasswordTextField.text.length < 1) {
         self.PasswordError.text = @"Provide correct password.";
-        return false;
+        return true;
     } else {
         self.PasswordError.text = @"";
-        return true;
+        return false;
     }
 }
 
 -(bool) CheckPassword {
-    if(![self.PasswordTextField.text isEqual: @"pass"]) {
+    if(![self.PasswordTextField.text isEqual: @"password"]) {
         self.PasswordError.text = @"Incorrect password.";
         return false;
     } else {

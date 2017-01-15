@@ -19,8 +19,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.EnterEmailError.text= @"";
-    self.ConfirmPasswordErrorLabel.text = @"";
     self.EnterPasswordError.text = @"";
+    self.ConfirmPasswordErrorLabel.text = @"";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,15 +30,15 @@
 
 - (IBAction)SignUpButtonTouchUpInside:(id)sender {
     bool isEmailEmpty = [self CheckEmailEmpty];
-    if(isEmailEmpty == true) {
+    if(!isEmailEmpty) {
         bool isEmailRegexValid = [self ValidateEmailRegex];
-        if(isEmailRegexValid == true) {
+        if(isEmailRegexValid) {
             bool isPasswordEmpty = [self CheckPasswordEmpty];
-            if(isPasswordEmpty == true) {
+            if(!isPasswordEmpty) {
                 bool isConfirmPasswordEmpty = [self CheckConfirmPasswordEmpty];
-                if(isConfirmPasswordEmpty == true) {
+                if(!isConfirmPasswordEmpty) {
                     bool arePasswordsTheSame = [self ConfirmPassword];
-                    if(arePasswordsTheSame == true) {
+                    if(arePasswordsTheSame) {
                         [self SignUp];
                     }
                 }
@@ -50,10 +50,10 @@
 -(bool) CheckEmailEmpty {
     if(self.EnterEmailTextField.text.length < 1) {
         self.EnterEmailError.text = @"Provide correct email.";
-        return false;
+        return true;
     } else {
         self.EnterEmailError.text = @"";
-        return true;
+        return false;
     }
 }
 
@@ -77,20 +77,20 @@
 -(bool) CheckPasswordEmpty {
     if(self.EnterPasswordTextField.text.length < 1) {
         self.EnterPasswordError.text = @"Provide correct password.";
-        return false;
+        return true;
     } else {
         self.EnterPasswordError.text = @"";
-        return true;
+        return false;
     }
 }
 
 -(bool) CheckConfirmPasswordEmpty {
     if(self.ConfirmPasswordTextField.text.length < 1) {
         self.ConfirmPasswordErrorLabel.text = @"Provide correct password.";
-        return false;
+        return true;
     } else {
         self.ConfirmPasswordErrorLabel.text = @"";
-        return true;
+        return false;
     }
 }
 
