@@ -7,7 +7,7 @@
 //
 
 #import "LogInController.h"
-#import "MainViewController.h"
+#import "MainTabBarController.h"
 
 @interface LogInController ()
 
@@ -145,7 +145,7 @@
 
 -(void) LogIn {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    MainViewController *controller = (MainViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MainViewBoard"];
+    MainTabBarController *controller = (MainTabBarController *)[storyboard instantiateViewControllerWithIdentifier:@"MainTabBar"];
     [self.navigationController pushViewController:controller animated:YES];
 }
 
