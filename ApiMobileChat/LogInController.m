@@ -8,6 +8,7 @@
 
 #import "LogInController.h"
 #import "MainTabBarController.h"
+#import "Contact.h"
 
 @interface LogInController ()
 
@@ -144,6 +145,10 @@
 }
 
 -(void) LogIn {
+    
+    // Initialize contacts - for test purpose,fill hardcoded list
+    [Contact initializeContacts];
+    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     MainTabBarController *controller = (MainTabBarController *)[storyboard instantiateViewControllerWithIdentifier:@"MainTabBar"];
     [self.navigationController pushViewController:controller animated:YES];

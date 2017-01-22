@@ -11,6 +11,11 @@
 
 @interface Contact : NSObject
 
+// Static
++(NSMutableArray *) getContacts;
++(void)setContacts:(NSMutableArray *)value;
++(void)initializeContacts;
+
 @property (nonatomic) int userId;
 @property (nonatomic) int status;
 @property (strong, nonatomic) NSString *image;
@@ -19,5 +24,8 @@
 @property (strong, nonatomic) NSString *userName;
 @property (strong, nonatomic) NSString *password;
 @property (strong, nonatomic) NSString *accesstoken;
+
+
+
 
 @end
