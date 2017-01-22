@@ -11,5 +11,4 @@
 
 @implementation Contact : NSObject
 
-
 @end

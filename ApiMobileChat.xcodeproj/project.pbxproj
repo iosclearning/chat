@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5D32722D1E2430C800A19FF9 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5D32722C1E2430C800A19FF9 /* Settings.bundle */; };
-		C168A20F1E1C075F00A93B8B /* ContactTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C168A20E1E1C075F00A93B8B /* ContactTableViewController.m */; };
+		C168A20F1E1C075F00A93B8B /* ContactController.m in Sources */ = {isa = PBXBuildFile; fileRef = C168A20E1E1C075F00A93B8B /* ContactController.m */; };
 		C168A2141E1C137A00A93B8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C168A2121E1C137A00A93B8B /* Main.storyboard */; };
 		C16FD08E1E26ECD000A2897E /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C16FD08D1E26ECD000A2897E /* MainViewController.m */; };
 		C189B3B81E244FA500B5E8B8 /* darthvader.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C189B3B51E244FA500B5E8B8 /* darthvader.jpg */; };
@@ -29,8 +29,8 @@
 
 /* Begin PBXFileReference section */
 		5D32722C1E2430C800A19FF9 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		C168A20D1E1C075F00A93B8B /* ContactTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactTableViewController.h; sourceTree = "<group>"; };
-		C168A20E1E1C075F00A93B8B /* ContactTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactTableViewController.m; sourceTree = "<group>"; };
+		C168A20D1E1C075F00A93B8B /* ContactController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactController.h; sourceTree = "<group>"; };
+		C168A20E1E1C075F00A93B8B /* ContactController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactController.m; sourceTree = "<group>"; };
 		C168A2131E1C137A00A93B8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C16FD08C1E26ECD000A2897E /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		C16FD08D1E26ECD000A2897E /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
@@ -80,13 +80,13 @@
 			name = Chat;
 			sourceTree = "<group>";
 		};
-		C168A2111E1C07DC00A93B8B /* Table */ = {
+		C168A2111E1C07DC00A93B8B /* Contact */ = {
 			isa = PBXGroup;
 			children = (
-				C168A20D1E1C075F00A93B8B /* ContactTableViewController.h */,
-				C168A20E1E1C075F00A93B8B /* ContactTableViewController.m */,
+				C168A20D1E1C075F00A93B8B /* ContactController.h */,
+				C168A20E1E1C075F00A93B8B /* ContactController.m */,
 			);
-			name = Table;
+			name = Contact;
 			sourceTree = "<group>";
 		};
 		C16FD08B1E26ECBC00A2897E /* Main */ = {
@@ -167,7 +167,7 @@
 				C16FD08B1E26ECBC00A2897E /* Main */,
 				F46067C01E1D402D000FFD2C /* SignUp */,
 				F46067BC1E1D3675000FFD2C /* LogIn */,
-				C168A2111E1C07DC00A93B8B /* Table */,
+				C168A2111E1C07DC00A93B8B /* Contact */,
 				C168A2101E1C07C800A93B8B /* Chat */,
 			);
 			name = Controler;
@@ -288,7 +288,7 @@
 			files = (
 				F46067C31E1D4041000FFD2C /* SignUpController.m in Sources */,
 				EA490F531E2D798000C2EFF5 /* ChatsTableViewCell.m in Sources */,
-				C168A20F1E1C075F00A93B8B /* ContactTableViewController.m in Sources */,
+				C168A20F1E1C075F00A93B8B /* ContactController.m in Sources */,
 				EA490F561E2D7A8A00C2EFF5 /* ChatsTableViewController.m in Sources */,
 				EA490F501E2D760700C2EFF5 /* MainTabBarController.m in Sources */,
 				C1E6CEF51E1B12130006A7B3 /* Contact.m in Sources */,

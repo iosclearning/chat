@@ -35,12 +35,15 @@ static NSString *pCellIdent = @"ChatsCell";
     NSError *err;
     
     _recentChats = [NSJSONSerialization JSONObjectWithData:jData options:NSJSONReadingAllowFragments error:&err];
-    
-    
-    //    for (int i=0;i<10;i++) {
-    //        [_recentChats addObject:[[NSString alloc] initWithFormat:@"Customer %i", i]];
-    //    }
-    
+}
+
+// This sets top margin of tableView so it does not get over batery indicator
+-(void)viewDidLayoutSubviews
+{
+    if(self.tableView.contentInset.top != self.topLayoutGuide.length)
+    {
+        self.tableView.contentInset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0.0, 0.0, 0.0);
+    }
 }
 
 - (void)didReceiveMemoryWarning {
