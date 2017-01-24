@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		5D32722D1E2430C800A19FF9 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5D32722C1E2430C800A19FF9 /* Settings.bundle */; };
+		5D4FD0611E377CC900335DE9 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4FD0601E377CC900335DE9 /* ChatViewController.m */; };
+		5D4FD0641E377D2A00335DE9 /* ReceivedMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4FD0631E377D2A00335DE9 /* ReceivedMessageCell.m */; };
+		5D4FD0661E377D3200335DE9 /* ReceivedMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D4FD0651E377D3200335DE9 /* ReceivedMessageCell.xib */; };
+		5D4FD0691E377D3F00335DE9 /* SendMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4FD0681E377D3F00335DE9 /* SendMessageCell.m */; };
+		5D4FD06B1E377D4500335DE9 /* SendMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D4FD06A1E377D4500335DE9 /* SendMessageCell.xib */; };
+		5D4FD06D1E377D5200335DE9 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4FD06C1E377D5200335DE9 /* Message.m */; };
 		C168A20F1E1C075F00A93B8B /* ContactController.m in Sources */ = {isa = PBXBuildFile; fileRef = C168A20E1E1C075F00A93B8B /* ContactController.m */; };
 		C168A2141E1C137A00A93B8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C168A2121E1C137A00A93B8B /* Main.storyboard */; };
 		C16FD08E1E26ECD000A2897E /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C16FD08D1E26ECD000A2897E /* MainViewController.m */; };
@@ -16,7 +22,6 @@
 		C189B3BA1E244FA500B5E8B8 /* windu.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C189B3B71E244FA500B5E8B8 /* windu.jpg */; };
 		C1E6CEDD1E1AFFB60006A7B3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E6CEDC1E1AFFB60006A7B3 /* main.m */; };
 		C1E6CEE01E1AFFB60006A7B3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E6CEDF1E1AFFB60006A7B3 /* AppDelegate.m */; };
-		C1E6CEE31E1AFFB60006A7B3 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E6CEE21E1AFFB60006A7B3 /* ChatViewController.m */; };
 		C1E6CEE81E1AFFB60006A7B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1E6CEE71E1AFFB60006A7B3 /* Assets.xcassets */; };
 		C1E6CEEB1E1AFFB60006A7B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1E6CEE91E1AFFB60006A7B3 /* LaunchScreen.storyboard */; };
 		C1E6CEF51E1B12130006A7B3 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E6CEF41E1B12130006A7B3 /* Contact.m */; };
@@ -29,6 +34,16 @@
 
 /* Begin PBXFileReference section */
 		5D32722C1E2430C800A19FF9 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		5D4FD05F1E377CAF00335DE9 /* ChatViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ChatViewController.h; path = "../../../Desktop/Chat app/ChatApp/chat/ApiMobileChat/ChatViewController.h"; sourceTree = "<group>"; };
+		5D4FD0601E377CC900335DE9 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatViewController.m; path = "../../../Desktop/Chat app/ChatApp/chat/ApiMobileChat/ChatViewController.m"; sourceTree = "<group>"; };
+		5D4FD0621E377D2100335DE9 /* ReceivedMessageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ReceivedMessageCell.h; path = "../../../Desktop/Chat app/Experimenting/ChatView/ChatView/ReceivedMessageCell.h"; sourceTree = "<group>"; };
+		5D4FD0631E377D2A00335DE9 /* ReceivedMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReceivedMessageCell.m; path = "../../../Desktop/Chat app/Experimenting/ChatView/ChatView/ReceivedMessageCell.m"; sourceTree = "<group>"; };
+		5D4FD0651E377D3200335DE9 /* ReceivedMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ReceivedMessageCell.xib; path = "../../../Desktop/Chat app/Experimenting/ChatView/ChatView/ReceivedMessageCell.xib"; sourceTree = "<group>"; };
+		5D4FD0671E377D3900335DE9 /* SendMessageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SendMessageCell.h; path = "../../../Desktop/Chat app/Experimenting/ChatView/ChatView/SendMessageCell.h"; sourceTree = "<group>"; };
+		5D4FD0681E377D3F00335DE9 /* SendMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SendMessageCell.m; path = "../../../Desktop/Chat app/Experimenting/ChatView/ChatView/SendMessageCell.m"; sourceTree = "<group>"; };
+		5D4FD06A1E377D4500335DE9 /* SendMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SendMessageCell.xib; path = "../../../Desktop/Chat app/Experimenting/ChatView/ChatView/SendMessageCell.xib"; sourceTree = "<group>"; };
+		5D4FD06C1E377D5200335DE9 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Message.m; path = "../../../Desktop/Chat app/Experimenting/ChatView/ChatView/Message.m"; sourceTree = "<group>"; };
+		5D4FD06E1E377D5900335DE9 /* Message.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Message.h; path = "../../../Desktop/Chat app/Experimenting/ChatView/ChatView/Message.h"; sourceTree = "<group>"; };
 		C168A20D1E1C075F00A93B8B /* ContactController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactController.h; sourceTree = "<group>"; };
 		C168A20E1E1C075F00A93B8B /* ContactController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactController.m; sourceTree = "<group>"; };
 		C168A2131E1C137A00A93B8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -41,8 +56,6 @@
 		C1E6CEDC1E1AFFB60006A7B3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C1E6CEDE1E1AFFB60006A7B3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C1E6CEDF1E1AFFB60006A7B3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		C1E6CEE11E1AFFB60006A7B3 /* ChatViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
-		C1E6CEE21E1AFFB60006A7B3 /* ChatViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
 		C1E6CEE71E1AFFB60006A7B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C1E6CEEA1E1AFFB60006A7B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C1E6CEEC1E1AFFB60006A7B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -74,8 +87,14 @@
 		C168A2101E1C07C800A93B8B /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				C1E6CEE11E1AFFB60006A7B3 /* ChatViewController.h */,
-				C1E6CEE21E1AFFB60006A7B3 /* ChatViewController.m */,
+				5D4FD06A1E377D4500335DE9 /* SendMessageCell.xib */,
+				5D4FD0681E377D3F00335DE9 /* SendMessageCell.m */,
+				5D4FD0671E377D3900335DE9 /* SendMessageCell.h */,
+				5D4FD0651E377D3200335DE9 /* ReceivedMessageCell.xib */,
+				5D4FD0631E377D2A00335DE9 /* ReceivedMessageCell.m */,
+				5D4FD0621E377D2100335DE9 /* ReceivedMessageCell.h */,
+				5D4FD0601E377CC900335DE9 /* ChatViewController.m */,
+				5D4FD05F1E377CAF00335DE9 /* ChatViewController.h */,
 			);
 			name = Chat;
 			sourceTree = "<group>";
@@ -154,6 +173,8 @@
 		C1E6CEF21E1B0D0A0006A7B3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5D4FD06E1E377D5900335DE9 /* Message.h */,
+				5D4FD06C1E377D5200335DE9 /* Message.m */,
 				C1E6CEF31E1B12130006A7B3 /* Contact.h */,
 				C1E6CEF41E1B12130006A7B3 /* Contact.m */,
 			);
@@ -269,10 +290,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D4FD06B1E377D4500335DE9 /* SendMessageCell.xib in Resources */,
 				5D32722D1E2430C800A19FF9 /* Settings.bundle in Resources */,
 				C168A2141E1C137A00A93B8B /* Main.storyboard in Resources */,
 				C189B3BA1E244FA500B5E8B8 /* windu.jpg in Resources */,
 				C1E6CEEB1E1AFFB60006A7B3 /* LaunchScreen.storyboard in Resources */,
+				5D4FD0661E377D3200335DE9 /* ReceivedMessageCell.xib in Resources */,
 				C189B3B81E244FA500B5E8B8 /* darthvader.jpg in Resources */,
 				C1E6CEE81E1AFFB60006A7B3 /* Assets.xcassets in Resources */,
 				C189B3B91E244FA500B5E8B8 /* obiwan.jpg in Resources */,
@@ -286,14 +309,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D4FD0641E377D2A00335DE9 /* ReceivedMessageCell.m in Sources */,
 				F46067C31E1D4041000FFD2C /* SignUpController.m in Sources */,
 				EA490F531E2D798000C2EFF5 /* ChatsTableViewCell.m in Sources */,
+				5D4FD06D1E377D5200335DE9 /* Message.m in Sources */,
+				5D4FD0611E377CC900335DE9 /* ChatViewController.m in Sources */,
 				C168A20F1E1C075F00A93B8B /* ContactController.m in Sources */,
 				EA490F561E2D7A8A00C2EFF5 /* ChatsTableViewController.m in Sources */,
 				EA490F501E2D760700C2EFF5 /* MainTabBarController.m in Sources */,
 				C1E6CEF51E1B12130006A7B3 /* Contact.m in Sources */,
 				C16FD08E1E26ECD000A2897E /* MainViewController.m in Sources */,
-				C1E6CEE31E1AFFB60006A7B3 /* ChatViewController.m in Sources */,
+				5D4FD0691E377D3F00335DE9 /* SendMessageCell.m in Sources */,
 				F46067BF1E1D3689000FFD2C /* LogInController.m in Sources */,
 				C1E6CEE01E1AFFB60006A7B3 /* AppDelegate.m in Sources */,
 				C1E6CEDD1E1AFFB60006A7B3 /* main.m in Sources */,
