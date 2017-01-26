@@ -12,6 +12,5 @@
 @interface ContactController : UITableViewController
 
 @property (strong,nonatomic) NSMutableArray *contacts;
-@property (strong, nonatomic) UIStoryboard *storyBoard;
 
 @end

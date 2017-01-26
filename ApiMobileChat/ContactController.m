@@ -22,9 +22,7 @@ static NSString *pCellIdentifier = @"Cell";
     [super viewDidLoad];
 
     // Fill local contacts
-    self.contacts = [Contact getContacts];
-    self.storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-}
+    self.contacts = [Contact getContacts];}
 
 // This sets top margin of tableView so it does not get over batery indicator
 -(void)viewDidLayoutSubviews
@@ -124,11 +122,6 @@ static NSString *pCellIdentifier = @"Cell";
         [alert addAction:noButton];
         [self presentViewController:alert animated:YES completion:nil];
     }
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UIViewController *controller = [self.storyBoard instantiateViewControllerWithIdentifier:@"ChatViewBoard"];
-    [self.navigationController pushViewController:controller animated:YES];
 }
 
 @end
