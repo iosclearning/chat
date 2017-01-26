@@ -24,6 +24,7 @@ static NSMutableArray *_contacts;
     contact1.lastName = @"Vader";
     contact1.userName = @"DV";
     contact1.image = @"darthvader.jpg";
+    contact1.email = @"darth@darth.com";
     
     Contact *contact2 = [[Contact alloc]init];
     contact2.userId = 2;
@@ -31,6 +32,7 @@ static NSMutableArray *_contacts;
     contact2.lastName = @"Windu";
     contact2.userName = @"MV";
     contact2.image = @"windu.jpg";
+    contact2.email = @"windu@darth.com";
     
     Contact *contact3 = [[Contact alloc]init];
     contact3.userId = 3;
@@ -38,6 +40,7 @@ static NSMutableArray *_contacts;
     contact3.lastName = @"Kenobi";
     contact3.userName = @"OWK";
     contact3.image = @"obiwan.jpg";
+    contact3.email = @"obi@darth.com";
     
     [self setContacts: [[NSMutableArray alloc] initWithObjects:contact1,contact2,contact3,nil]];
 }
