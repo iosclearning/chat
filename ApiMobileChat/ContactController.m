@@ -22,7 +22,9 @@ static NSString *pCellIdentifier = @"Cell";
     [super viewDidLoad];
 
     // Fill local contacts
-    self.contacts = [Contact getContacts];}
+    self.contacts = [Contact getContacts];
+    self.storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+}
 
 // This sets top margin of tableView so it does not get over batery indicator
 -(void)viewDidLayoutSubviews
@@ -143,10 +145,17 @@ static NSString *pCellIdentifier = @"Cell";
                                     [self.tableView reloadData];
                                 }];
     UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){}];
-
+    
+    UIAlertAction *chatButton = [UIAlertAction actionWithTitle:@"Start conversation" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+        UIViewController *controller = [self.storyBoard instantiateViewControllerWithIdentifier:@"ChatDetailViewBoard"];
+        [self.navigationController pushViewController:controller animated:YES];
+    }];
+    
     // Visible controls and colors on alert
     [alert addAction:saveButton];
     [saveButton setValue:[UIColor colorWithRed:0.0 green:0.0 blue:1.0 alpha:1.0] forKey:@"titleTextColor"];
+    [alert addAction:chatButton];
+    [chatButton setValue:[UIColor colorWithRed:0.0 green:0.0 blue:1.0 alpha:1.0] forKey:@"titleTextColor"];
     [alert addAction:cancelButton];
     [cancelButton setValue:[UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0] forKey:@"titleTextColor"];
     
