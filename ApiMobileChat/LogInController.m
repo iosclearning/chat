@@ -43,8 +43,17 @@
     bool isEmailValid = [self ValidateEmail];
     bool isPasswordValid = [self ValidatePassword];
     if(isEmailValid == true && isPasswordValid == true) {
-        [self LogIn];
+        [self ServerResponse];
     }
+}
+
+-(void) ServerResponse {
+    //if(self.response.length > 10) {
+        //self.EmailError.text = self.response;
+        //self.PasswordError.text = self.response;
+    //} else {
+        [self LogIn];
+    //}
 }
 
 -(bool) ValidateEmail {
@@ -97,7 +106,6 @@
 }
 
 -(bool) CheckEmail {
-    //if (![self.response objectForKey:self.EmailTextField.text]) {
     if (![self.EmailTextField.text isEqual:@"username@api.com"]) {
         self.EmailError.text = @"Incorrect email.";
         return false;
@@ -155,16 +163,31 @@
 }
 
 -(void) Rest {
-    NSString *url = @"http://localhost:5000/api/values";
+    NSDictionary *headers = @{ @"content-type": @"application/json" };
+    NSDictionary *parameters = @{ @"email": self.EmailTextField.text,
+                                  @"password": self.PasswordTextField.text };
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost:5000/api/values"]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:10.0];
+    [request setHTTPMethod:@"POST"];
+    [request setAllHTTPHeaderFields:headers];
+    [request setHTTPBody:postData];
     NSURLSession *session = [NSURLSession sharedSession];
-    [[session dataTaskWithURL:[NSURL URLWithString:url] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        //NSLog(@"Response %@", response);
-        //NSLog(@"Data %@", data);
-        //NSLog(@"Error %@", error);
-        NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-        //NSLog(@"Dictionary %@", dictionary);
-        self.response = dictionary;
-    }] resume];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
+                                                completionHandler:^(NSData *data,
+                                                                    NSURLResponse *response,
+                                                                    NSError *error) {
+                                                    if (error) {
+                                                        NSLog(@"Error%@", error);
+                                                    } else {
+                                                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                                                        NSLog(@"Response%@", httpResponse);
+                                                        NSString* response;
+                                                        response = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+                                                        self.response = response;
+                                                    }}];
+    [dataTask resume];
 }
 
 

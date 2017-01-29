@@ -19,5 +19,6 @@
 @property (strong, nonatomic) IBOutlet UITextField *ConfirmPasswordTextField;
 @property (strong, nonatomic) IBOutlet UILabel *ConfirmPasswordErrorLabel;
 @property (strong, nonatomic) IBOutlet UIButton *SignUpButton;
+@property (strong, nonatomic) NSString *response;
 
 @end

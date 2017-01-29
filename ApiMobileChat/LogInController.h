@@ -20,6 +20,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *SignUpLabelOne;
 @property (strong, nonatomic) IBOutlet UILabel *SignUpLabelTwo;
 @property (strong, nonatomic) IBOutlet UIButton *SignUpButton;
-@property (strong, nonatomic) NSDictionary *response;
+@property (strong, nonatomic) NSString *response;
 
 @end

@@ -29,6 +29,9 @@
 }
 
 - (IBAction)SignUpButtonTouchUpInside:(id)sender {
+    // TODO
+    // Implement Rest.
+    //[self Rest];
     bool isEmailEmpty = [self CheckEmailEmpty];
     if(!isEmailEmpty) {
         bool isEmailRegexValid = [self ValidateEmailRegex];
@@ -39,7 +42,7 @@
                 if(!isConfirmPasswordEmpty) {
                     bool arePasswordsTheSame = [self ConfirmPassword];
                     if(arePasswordsTheSame) {
-                        [self SignUp];
+                        [self ServerResponse];
                     }
                 }
             }
@@ -106,8 +109,46 @@
 
 -(void) SignUp {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    MainViewController *controller = (MainViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MainViewBoard"];
+    MainViewController *controller = (MainViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MainTabBar"];
     [self.navigationController pushViewController:controller animated:YES];
+}
+
+-(void) ServerResponse {
+    //if(self.response.length > 10) {
+    //self.EmailError.text = self.response;
+    //self.PasswordError.text = self.response;
+    //} else {
+    [self SignUp];
+    //}
+}
+
+
+-(void) Rest {
+    NSDictionary *headers = @{ @"content-type": @"application/json" };
+    NSDictionary *parameters = @{ @"email": self.EnterEmailTextField.text,
+                                  @"password": self.EnterPasswordTextField.text };
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost:5000/api/values"]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:10.0];
+    [request setHTTPMethod:@"POST"];
+    [request setAllHTTPHeaderFields:headers];
+    [request setHTTPBody:postData];
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
+                                                completionHandler:^(NSData *data,
+                                                                    NSURLResponse *response,
+                                                                    NSError *error) {
+                                                    if (error) {
+                                                        NSLog(@"Error%@", error);
+                                                    } else {
+                                                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                                                        NSLog(@"Response%@", httpResponse);
+                                                        NSString* response;
+                                                        response = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+                                                        self.response = response;
+                                                    }}];
+    [dataTask resume];
 }
 
 /*
