@@ -33,6 +33,12 @@
     self.navBar.topItem.title = @"Chat";
     self.navBar.topItem.rightBarButtonItem = self.editButtonItem;
     
+    UIBarButtonItem *btnBack = [[UIBarButtonItem alloc] initWithTitle:@"Contacts" style:UIBarButtonItemStylePlain target:self.navigationController action:@selector(popViewControllerAnimated:)];
+    
+    [btnBack setImage:[UIImage imageNamed:@"back.png"]];
+    
+    self.navBar.topItem.leftBarButtonItem = btnBack;
+    
     self.messages = [[NSMutableArray alloc] init];
     
     self.emptyDataText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.chatTableView.bounds.size.width, self.chatTableView.bounds.size.height)];

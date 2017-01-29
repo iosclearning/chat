@@ -13,6 +13,7 @@
 		5D0FE1901E3CDA290011D0D9 /* SendMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D0FE18E1E3CDA290011D0D9 /* SendMessageCell.xib */; };
 		5D0FE1931E3CEA020011D0D9 /* ChatDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D0FE1921E3CEA020011D0D9 /* ChatDetailViewController.m */; };
 		5D109CED1E3CD6BA001B0D05 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D109CEC1E3CD6BA001B0D05 /* Message.m */; };
+		5D1B55411E3EB5BC002041DD /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D1B55401E3EB5BC002041DD /* back.png */; };
 		5D32722D1E2430C800A19FF9 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5D32722C1E2430C800A19FF9 /* Settings.bundle */; };
 		C168A20F1E1C075F00A93B8B /* ContactController.m in Sources */ = {isa = PBXBuildFile; fileRef = C168A20E1E1C075F00A93B8B /* ContactController.m */; };
 		C168A2141E1C137A00A93B8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C168A2121E1C137A00A93B8B /* Main.storyboard */; };
@@ -43,6 +44,7 @@
 		5D0FE1921E3CEA020011D0D9 /* ChatDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatDetailViewController.m; sourceTree = "<group>"; };
 		5D109CEB1E3CD6BA001B0D05 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
 		5D109CEC1E3CD6BA001B0D05 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		5D1B55401E3EB5BC002041DD /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = back.png; path = ../../../Downloads/back.png; sourceTree = "<group>"; };
 		5D32722C1E2430C800A19FF9 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		C168A20D1E1C075F00A93B8B /* ContactController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactController.h; sourceTree = "<group>"; };
 		C168A20E1E1C075F00A93B8B /* ContactController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactController.m; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 		5D0FE1861E3CD9620011D0D9 /* ChatDetail */ = {
 			isa = PBXGroup;
 			children = (
+				5D1B55401E3EB5BC002041DD /* back.png */,
 				5D0FE1871E3CD9E70011D0D9 /* ReceivedMessageCell.h */,
 				5D0FE1881E3CD9E70011D0D9 /* ReceivedMessageCell.m */,
 				5D0FE1891E3CD9E70011D0D9 /* ReceivedMessageCell.xib */,
@@ -296,6 +299,7 @@
 				C189B3BA1E244FA500B5E8B8 /* windu.jpg in Resources */,
 				C1E6CEEB1E1AFFB60006A7B3 /* LaunchScreen.storyboard in Resources */,
 				5D0FE18B1E3CD9E70011D0D9 /* ReceivedMessageCell.xib in Resources */,
+				5D1B55411E3EB5BC002041DD /* back.png in Resources */,
 				C189B3B81E244FA500B5E8B8 /* darthvader.jpg in Resources */,
 				C1E6CEE81E1AFFB60006A7B3 /* Assets.xcassets in Resources */,
 				C189B3B91E244FA500B5E8B8 /* obiwan.jpg in Resources */,
