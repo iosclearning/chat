@@ -32,7 +32,8 @@
     self.btnSend.enabled = NO;
     self.navBar.topItem.title = @"Chat";
     self.navBar.topItem.rightBarButtonItem = self.editButtonItem;
-    
+    self.chatTableView.rowHeight = UITableViewAutomaticDimension;
+    self.chatTableView.estimatedRowHeight = 75.0;
     UIBarButtonItem *btnBack = [[UIBarButtonItem alloc] initWithTitle:@"Contacts" style:UIBarButtonItemStylePlain target:self.navigationController action:@selector(popViewControllerAnimated:)];
     
     [btnBack setImage:[UIImage imageNamed:@"back.png"]];
@@ -136,6 +137,15 @@
         self.emptyDataText.hidden = YES;
     }
     return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    BOOL isSendMessageRow = (indexPath.row % 2 == 0);
+    if(isSendMessageRow) {
+        return 65.0;
+    } else {
+        return 100.0;
+    }
 }
 
 @end
