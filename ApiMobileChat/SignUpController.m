@@ -17,21 +17,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.EnterEmailError.text= @"";
     self.EnterPasswordError.text = @"";
     self.ConfirmPasswordErrorLabel.text = @"";
+    self.InformationLabel.text = @"";
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)SignUpButtonTouchUpInside:(id)sender {
-    // TODO
-    // Implement Rest.
-    //[self Rest];
     bool isEmailEmpty = [self CheckEmailEmpty];
     if(!isEmailEmpty) {
         bool isEmailRegexValid = [self ValidateEmailRegex];
@@ -42,7 +38,13 @@
                 if(!isConfirmPasswordEmpty) {
                     bool arePasswordsTheSame = [self ConfirmPassword];
                     if(arePasswordsTheSame) {
-                        [self ServerResponse];
+                        [self SendRegisterRequest];
+                        [NSThread sleepForTimeInterval: 5];
+                        if(self.response.length > 8) {
+                            self.InformationLabel.text  = self.response;
+                        } else {
+                            [self SignUp];
+                        }
                     }
                 }
             }
@@ -107,28 +109,12 @@
     }
 }
 
--(void) SignUp {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    MainViewController *controller = (MainViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MainTabBar"];
-    [self.navigationController pushViewController:controller animated:YES];
-}
-
--(void) ServerResponse {
-    //if(self.response.length > 10) {
-    //self.EmailError.text = self.response;
-    //self.PasswordError.text = self.response;
-    //} else {
-    [self SignUp];
-    //}
-}
-
-
--(void) Rest {
+-(void) SendRegisterRequest {
     NSDictionary *headers = @{ @"content-type": @"application/json" };
     NSDictionary *parameters = @{ @"email": self.EnterEmailTextField.text,
                                   @"password": self.EnterPasswordTextField.text };
     NSData *postData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost:5000/api/values"]
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://ioschatapi.azurewebsites.net/api/user/register"]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:10.0];
     [request setHTTPMethod:@"POST"];
@@ -140,25 +126,23 @@
                                                                     NSURLResponse *response,
                                                                     NSError *error) {
                                                     if (error) {
+                                                        // Development environment.
                                                         NSLog(@"Error%@", error);
                                                     } else {
                                                         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                                                        // Development environment.
                                                         NSLog(@"Response%@", httpResponse);
-                                                        NSString* response;
-                                                        response = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-                                                        self.response = response;
+                                                        NSString* responseData = [[NSString alloc] initWithBytes:data.bytes length:data.length encoding:NSUTF8StringEncoding];
+                                                        self.response = responseData;
+                                                        
                                                     }}];
     [dataTask resume];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void) SignUp {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MainViewController *controller = (MainViewController *)[storyboard instantiateViewControllerWithIdentifier:@"MainTabBar"];
+    [self.navigationController pushViewController:controller animated:YES];
 }
-*/
 
 @end

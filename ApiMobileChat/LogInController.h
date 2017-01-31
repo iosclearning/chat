@@ -1,6 +1,6 @@
 //
 //  LogInController.h
-//  ApiMobileChat
+//  Chat
 //
 //  Created by Anel Memic on 1/4/17.
 //  Copyright © 2017 api. All rights reserved.
@@ -20,6 +20,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *SignUpLabelOne;
 @property (strong, nonatomic) IBOutlet UILabel *SignUpLabelTwo;
 @property (strong, nonatomic) IBOutlet UIButton *SignUpButton;
+@property (strong, nonatomic) IBOutlet UILabel *InformationLabel;
 @property (strong, nonatomic) NSString *response;
 
 @end

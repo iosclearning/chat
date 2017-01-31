@@ -1,13 +1,13 @@
 //
 //  LogInController.m
-//  ApiMobileChat
+//  Chat
 //
 //  Created by Anel Memic on 1/4/17.
 //  Copyright © 2017 api. All rights reserved.
 //
 
-#import "LogInController.h"
 #import "MainTabBarController.h"
+#import "LogInController.h"
 #import "Contact.h"
 
 @interface LogInController ()
@@ -18,42 +18,37 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.EmailError.text = @"";
     self.PasswordError.text = @"";
+    self.InformationLabel.text = @"";
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)EmailTextFieldChange:(id)sender {
-    //NSLog(@"Email %@", self.EmailTextField.text);
+    // Development environment.
+    NSLog(@"Email text field value %@", self.EmailTextField.text);
 }
 
 - (IBAction)PasswordTextFieldChange:(id)sender {
-    //NSLog(@"Password  %@", self.PasswordTextField.text);
+    // Development environment.
+    NSLog(@"Password text field value %@", self.PasswordTextField.text);
 }
 
 - (IBAction)LoginButtonTouchUpInside:(id)sender {
-    // TODO
-    // Implement Rest.
-    //[self Rest];
     bool isEmailValid = [self ValidateEmail];
     bool isPasswordValid = [self ValidatePassword];
     if(isEmailValid == true && isPasswordValid == true) {
-        [self ServerResponse];
+        [self SendLoginRequest];
+        [NSThread sleepForTimeInterval: 5];
+        if(self.response.length > 8) {
+            self.InformationLabel.text  = self.response;
+        } else {
+            [self LogIn];
+        }
     }
-}
-
--(void) ServerResponse {
-    //if(self.response.length > 10) {
-        //self.EmailError.text = self.response;
-        //self.PasswordError.text = self.response;
-    //} else {
-        [self LogIn];
-    //}
 }
 
 -(bool) ValidateEmail {
@@ -61,14 +56,6 @@
     if(!isEmailEmpty) {
         bool isEmailRegexValid = [self ValidateEmailRegex];
         if(isEmailRegexValid) {
-            // TODO
-            // Implement Rest.
-            //bool isEmailCorrect = [self CheckEmail];
-            //if(isEmailCorrect) {
-                //return true;
-            //} else {
-                //return false;
-            //}
             return true;
         } else {
             return false;
@@ -105,27 +92,9 @@
     return [emailCheck evaluateWithObject:email];
 }
 
--(bool) CheckEmail {
-    if (![self.EmailTextField.text isEqual:@"username@api.com"]) {
-        self.EmailError.text = @"Incorrect email.";
-        return false;
-    } else {
-        self.EmailError.text = @"";
-        return true;
-    }
-}
-
 -(bool) ValidatePassword {
     bool isPasswordEmpty = [self CheckPasswordEmpty];
     if(!isPasswordEmpty) {
-        // TODO
-        // Implement Rest.
-        //bool isPasswordCorrect = [self CheckPassword];
-        //if(isPasswordCorrect) {
-            //return true;
-        //} else {
-            //return false;
-        //}
         return true;
     } else {
         return false;
@@ -142,32 +111,12 @@
     }
 }
 
--(bool) CheckPassword {
-    if(![self.PasswordTextField.text isEqual: @"password"]) {
-        self.PasswordError.text = @"Incorrect password.";
-        return false;
-    } else {
-        self.PasswordError.text = @"";
-        return true;
-    }
-}
-
--(void) LogIn {
-    
-    // Initialize contacts - for test purpose,fill hardcoded list
-    [Contact initializeContacts];
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    MainTabBarController *controller = (MainTabBarController *)[storyboard instantiateViewControllerWithIdentifier:@"MainTabBar"];
-    [self.navigationController pushViewController:controller animated:YES];
-}
-
--(void) Rest {
+-(void) SendLoginRequest {
     NSDictionary *headers = @{ @"content-type": @"application/json" };
     NSDictionary *parameters = @{ @"email": self.EmailTextField.text,
                                   @"password": self.PasswordTextField.text };
     NSData *postData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost:5000/api/values"]
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://ioschatapi.azurewebsites.net/api/user/login"]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:10.0];
     [request setHTTPMethod:@"POST"];
@@ -179,26 +128,24 @@
                                                                     NSURLResponse *response,
                                                                     NSError *error) {
                                                     if (error) {
+                                                        // Development environment.
                                                         NSLog(@"Error%@", error);
                                                     } else {
                                                         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                                                        // Development environment.
                                                         NSLog(@"Response%@", httpResponse);
-                                                        NSString* response;
-                                                        response = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-                                                        self.response = response;
+                                                        NSString* responseData = [[NSString alloc] initWithBytes:data.bytes length:data.length encoding:NSUTF8StringEncoding];
+                                                        self.response = responseData;
+                                                        
                                                     }}];
     [dataTask resume];
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void) LogIn {
+    [Contact initializeContacts];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MainTabBarController *controller = (MainTabBarController *)[storyboard instantiateViewControllerWithIdentifier:@"MainTabBar"];
+    [self.navigationController pushViewController:controller animated:YES];
 }
-*/
 
 @end
