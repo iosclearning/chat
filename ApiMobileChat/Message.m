@@ -11,6 +11,8 @@
 @implementation Message
 
 @synthesize message;
-@synthesize date;
+@synthesize sentTime;
+@synthesize userIdFrom;
+@synthesize username;
 
 @end

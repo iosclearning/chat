@@ -11,6 +11,8 @@
 @interface Message : NSObject
 
 @property NSString *message;
-@property NSString *date;
+@property NSString *sentTime;
+@property int userIdFrom;
+@property NSString *username;
 
 @end

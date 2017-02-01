@@ -13,6 +13,7 @@
 @synthesize imgBackView;
 @synthesize txtMessageContent;
 @synthesize lblDate;
+@synthesize lblOtherUser;
 
 - (void)awakeFromNib {
     [super awakeFromNib];

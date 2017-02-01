@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="Lorem ipsum dolor sit er elit lamet, consectetaur " translatesAutoresizingMaskIntoConstraints="NO" id="n95-Fi-Kvb">
@@ -33,7 +33,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDc-JO-229">
-                        <rect key="frame" x="13" y="67" width="354" height="25"/>
+                        <rect key="frame" x="13" y="66" width="354" height="25"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <nil key="textColor"/>
@@ -44,6 +44,7 @@
             <connections>
                 <outlet property="imgBackView" destination="H2p-sc-9uM" id="lGE-5j-Eog"/>
                 <outlet property="lblDate" destination="eDc-JO-229" id="iuz-e5-ZRV"/>
+                <outlet property="lblOtherUser" destination="cI4-1d-tDQ" id="xiM-9c-jCu"/>
                 <outlet property="txtMessageContent" destination="n95-Fi-Kvb" id="29g-WQ-1FD"/>
             </connections>
             <point key="canvasLocation" x="31.5" y="88"/>

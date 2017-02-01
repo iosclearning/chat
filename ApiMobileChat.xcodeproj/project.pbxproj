@@ -14,6 +14,7 @@
 		5D0FE1931E3CEA020011D0D9 /* ChatDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D0FE1921E3CEA020011D0D9 /* ChatDetailViewController.m */; };
 		5D109CED1E3CD6BA001B0D05 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D109CEC1E3CD6BA001B0D05 /* Message.m */; };
 		5D32722D1E2430C800A19FF9 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5D32722C1E2430C800A19FF9 /* Settings.bundle */; };
+		5D4268951E429AFC00FB1ACA /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D4268941E429AFC00FB1ACA /* libsqlite3.tbd */; };
 		5DDE84EC1E41301F005D3A7A /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DDE84EB1E41301F005D3A7A /* back.png */; };
 		C168A20F1E1C075F00A93B8B /* ContactController.m in Sources */ = {isa = PBXBuildFile; fileRef = C168A20E1E1C075F00A93B8B /* ContactController.m */; };
 		C168A2141E1C137A00A93B8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C168A2121E1C137A00A93B8B /* Main.storyboard */; };
@@ -45,6 +46,7 @@
 		5D109CEB1E3CD6BA001B0D05 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
 		5D109CEC1E3CD6BA001B0D05 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		5D32722C1E2430C800A19FF9 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		5D4268941E429AFC00FB1ACA /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		5DDE84EB1E41301F005D3A7A /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		C168A20D1E1C075F00A93B8B /* ContactController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactController.h; sourceTree = "<group>"; };
 		C168A20E1E1C075F00A93B8B /* ContactController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactController.m; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D4268951E429AFC00FB1ACA /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +102,14 @@
 				5D0FE1921E3CEA020011D0D9 /* ChatDetailViewController.m */,
 			);
 			name = ChatDetail;
+			sourceTree = "<group>";
+		};
+		5D4268931E429AFC00FB1ACA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5D4268941E429AFC00FB1ACA /* libsqlite3.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C168A2111E1C07DC00A93B8B /* Contact */ = {
@@ -137,6 +148,7 @@
 			children = (
 				C1E6CEDA1E1AFFB60006A7B3 /* ApiMobileChat */,
 				C1E6CED91E1AFFB60006A7B3 /* Products */,
+				5D4268931E429AFC00FB1ACA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

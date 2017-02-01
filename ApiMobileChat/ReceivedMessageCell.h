@@ -16,4 +16,6 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *lblDate;
 
+@property (strong, nonatomic) IBOutlet UILabel *lblOtherUser;
+
 @end
