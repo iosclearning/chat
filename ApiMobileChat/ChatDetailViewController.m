@@ -11,6 +11,7 @@
 #import "ReceivedMessageCell.h"
 #import "Message.h"
 #import "sqlite3.h"
+#import "DBManager.h"
 
 #define keySendMessageCellIdentifier @"SendMessageCellIdentifier"
 #define keyReceivedMessageCellIdentifier @"ReceivedMessageCellIdentifier"
@@ -27,12 +28,6 @@
 @synthesize messages;
 @synthesize emptyDataText;
 
-- (NSString *)dataFilePath {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentDirectory = [paths objectAtIndex:0];
-    return [documentDirectory stringByAppendingPathComponent:@"data.sqlite"];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -47,28 +42,7 @@
     
     self.navBar.topItem.leftBarButtonItem = btnBack;
     
-    self.messages = [[NSMutableArray alloc] init];
-    
-    sqlite3 *database;
-    if(sqlite3_open([[self dataFilePath] UTF8String], &database) != SQLITE_OK) {
-        sqlite3_close(database);
-        NSAssert(0, @"Failed to open database");
-    }
-    NSString *queryMessages = @"SELECT messages.message, messages.sent_time, messages.user_id_from, users.username FROM messages INNER JOIN users ON users.id = messages.user_id_from WHERE messages.chat_id = 1;";
-    sqlite3_stmt *stmt;
-    if(sqlite3_prepare_v2(database, [queryMessages UTF8String], -1, &stmt, nil) == SQLITE_OK) {
-        while (sqlite3_step(stmt) == SQLITE_ROW) {
-            Message *m = [[Message alloc] init];
-            m.message = [NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 0)];
-            m.sentTime = [NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 1)];
-            m.userIdFrom = sqlite3_column_int(stmt, 2);
-            m.username = [NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 3)];
-            [self.messages addObject:m];
-        }
-        sqlite3_finalize(stmt);
-    }
-    sqlite3_close(database);
-    
+    self.messages = [[DBManager getInstance] getMessages];
     self.emptyDataText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.chatTableView.bounds.size.width, self.chatTableView.bounds.size.height)];
     
     self.emptyDataText.hidden = YES;
@@ -90,25 +64,7 @@
     
     [self.messages addObject:message];
     
-    sqlite3 *database;
-    if(sqlite3_open([[self dataFilePath] UTF8String], &database) != SQLITE_OK) {
-        sqlite3_close(database);
-        NSAssert(0, @"Failed to open database");
-    }
-    char *updateMessage = "INSERT OR REPLACE INTO messages (user_id_from, sent_time, message, chat_id) VALUES (?, ?, ?, ?);";
-    char *errorMsg = NULL;
-    sqlite3_stmt *stmt;
-    if(sqlite3_prepare_v2(database, updateMessage, -1, &stmt, nil) == SQLITE_OK) {
-        sqlite3_bind_int(stmt, 1, message.userIdFrom);
-        sqlite3_bind_text(stmt, 2, [[NSString stringWithFormat:@"%@", message.sentTime] UTF8String], -1, NULL);
-        sqlite3_bind_text(stmt, 3, [[NSString stringWithFormat:@"%@", message.message] UTF8String], -1, NULL);
-        sqlite3_bind_int(stmt, 4, 1);
-    }
-    if(sqlite3_step(stmt) != SQLITE_DONE) {
-        NSAssert(0, @"Error updating table: %s", errorMsg);
-    }
-    sqlite3_finalize(stmt);
-    sqlite3_close(database);
+    [[DBManager getInstance] insertMessage:message];
     
     NSIndexPath *newPath = [NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0];
     

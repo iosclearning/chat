@@ -15,6 +15,7 @@
 		5D109CED1E3CD6BA001B0D05 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D109CEC1E3CD6BA001B0D05 /* Message.m */; };
 		5D32722D1E2430C800A19FF9 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5D32722C1E2430C800A19FF9 /* Settings.bundle */; };
 		5D4268951E429AFC00FB1ACA /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D4268941E429AFC00FB1ACA /* libsqlite3.tbd */; };
+		5D722B771E4A6F9600A43CC9 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D722B761E4A6F9600A43CC9 /* DBManager.m */; };
 		5DDE84EC1E41301F005D3A7A /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DDE84EB1E41301F005D3A7A /* back.png */; };
 		C168A20F1E1C075F00A93B8B /* ContactController.m in Sources */ = {isa = PBXBuildFile; fileRef = C168A20E1E1C075F00A93B8B /* ContactController.m */; };
 		C168A2141E1C137A00A93B8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C168A2121E1C137A00A93B8B /* Main.storyboard */; };
@@ -47,6 +48,8 @@
 		5D109CEC1E3CD6BA001B0D05 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		5D32722C1E2430C800A19FF9 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		5D4268941E429AFC00FB1ACA /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		5D722B751E4A6F9600A43CC9 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
+		5D722B761E4A6F9600A43CC9 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
 		5DDE84EB1E41301F005D3A7A /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		C168A20D1E1C075F00A93B8B /* ContactController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactController.h; sourceTree = "<group>"; };
 		C168A20E1E1C075F00A93B8B /* ContactController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactController.m; sourceTree = "<group>"; };
@@ -192,6 +195,8 @@
 				C1E6CEF41E1B12130006A7B3 /* Contact.m */,
 				5D109CEB1E3CD6BA001B0D05 /* Message.h */,
 				5D109CEC1E3CD6BA001B0D05 /* Message.m */,
+				5D722B751E4A6F9600A43CC9 /* DBManager.h */,
+				5D722B761E4A6F9600A43CC9 /* DBManager.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -334,6 +339,7 @@
 				C1E6CEF51E1B12130006A7B3 /* Contact.m in Sources */,
 				C16FD08E1E26ECD000A2897E /* MainViewController.m in Sources */,
 				F46067BF1E1D3689000FFD2C /* LogInController.m in Sources */,
+				5D722B771E4A6F9600A43CC9 /* DBManager.m in Sources */,
 				5D0FE18F1E3CDA290011D0D9 /* SendMessageCell.m in Sources */,
 				C1E6CEE01E1AFFB60006A7B3 /* AppDelegate.m in Sources */,
 				5D109CED1E3CD6BA001B0D05 /* Message.m in Sources */,
