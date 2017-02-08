@@ -109,9 +109,14 @@ static NSString *pCellIdent = @"ChatsCell";
         i++;
     }
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *fontSizeS = [defaults objectForKey:@"ChatFontSizeSetting"];
+    int fontSize = [fontSizeS intValue];
+    
     [cell.chatName setText:sName];
     [cell.chatMsg setText:sMessage];
-    
+    [cell.chatMsg setFont:[UIFont fontWithName:@"Arial" size:fontSize]];
+
     NSString *imagePath = [[NSBundle mainBundle] pathForResource:sImage ofType:@"jpg"];
     
     if (imagePath !=nil) {
