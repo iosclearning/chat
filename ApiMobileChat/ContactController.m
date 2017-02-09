@@ -23,7 +23,7 @@ static NSString *pCellIdentifier = @"Cell";
     [super viewDidLoad];
     
     // Fill local contacts
-    self.contacts = [Contact getContacts];
+    self.contacts = [[DBManager getInstance] getOtherUsers];
     self.storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
 }
 

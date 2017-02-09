@@ -89,14 +89,14 @@ static Contact *thisUser = nil;
         NSAssert(0, @"Failed to open database");
     }
     for (int i = 1; i <= 2; i++) {
-        char *updateUser = "INSERT OR REPLACE INTO users (id, first_name, last_name, username, password, access_token) VALUES (?, ?, ?, ?, ?, ?);";
+        char *updateUser = "INSERT OR REPLACE INTO users (id, first_name, last_name, username, email, access_token) VALUES (?, ?, ?, ?, ?, ?);";
         char *errorMsg = NULL;
         if(sqlite3_prepare_v2(database, updateUser, -1, &stmt, nil) == SQLITE_OK) {
             sqlite3_bind_int(stmt, 1, i);
             sqlite3_bind_text(stmt, 2, (i == 1) ? "Zajim" : "Anela", -1, NULL);
             sqlite3_bind_text(stmt, 3, "Kujovic", -1, NULL);
             sqlite3_bind_text(stmt, 4, (i == 1) ? "zajim" : "anela", -1, NULL);
-            sqlite3_bind_text(stmt, 5, (i == 1) ? "zajim123" : "anela123", -1, NULL);
+            sqlite3_bind_text(stmt, 5, (i == 1) ? "zajim@gmail.com" : "anela@gmail.com", -1, NULL);
             sqlite3_bind_text(stmt, 6, "1234567890", -1, NULL);
         }
         if(sqlite3_step(stmt) != SQLITE_DONE) {
@@ -254,6 +254,7 @@ static Contact *thisUser = nil;
                 NSAssert(0, @"Error updating table: %s", errorMsg);
             }
         }
+        sqlite3_finalize(stmt);
     }
     
     updateUser = "INSERT OR REPLACE INTO users (server_id, first_name, last_name, username, email, access_token, current) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -295,7 +296,6 @@ static Contact *thisUser = nil;
 }
 
 -(Contact *)currentUser {
-    if(!thisUser) {
         if(sqlite3_open([[self dataFilePath] UTF8String], &database) != SQLITE_OK) {
             sqlite3_close(database);
             NSAssert(0, @"Failed to open database");
@@ -305,16 +305,30 @@ static Contact *thisUser = nil;
         if(sqlite3_prepare_v2(database, [query UTF8String], -1, &stmt, nil) == SQLITE_OK) {
             while (sqlite3_step(stmt) == SQLITE_ROW) {
                 thisUser.userId = sqlite3_column_int(stmt, 0);
-                thisUser.firstName = [NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 1)];
-                thisUser.lastName = [NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 2)];
-                thisUser.userName = [NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 3)];
-                thisUser.email = [NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 4)];
-                thisUser.accesstoken = [NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 5)];
+                char *firstName = (char*)sqlite3_column_text(stmt, 1);
+                if(firstName) {
+                    thisUser.firstName = @(firstName);
+                }
+                char *lastName = (char*)sqlite3_column_text(stmt, 2);
+                if(lastName) {
+                    thisUser.lastName = @(lastName);
+                }
+                char *userName = (char*)sqlite3_column_text(stmt, 3);
+                if(userName) {
+                    thisUser.userName = @(userName);
+                }
+                char *email = (char*)sqlite3_column_text(stmt, 4);
+                if(email) {
+                    thisUser.email = @(email);
+                }
+                char *accesstoken = (char*)sqlite3_column_text(stmt, 5);
+                if(accesstoken) {
+                    thisUser.accesstoken = @(accesstoken);
+                }
             }
             sqlite3_finalize(stmt);
         }
         sqlite3_close(database);
-    }
     return thisUser;
 }
 
@@ -324,17 +338,32 @@ static Contact *thisUser = nil;
         sqlite3_close(database);
         NSAssert(0, @"Failed to open database");
     }
-    NSString *query = @"SELECT id, server_id, first_name, last_name, username, email FROM users WHERE current = 0";
+    NSString *query = @"SELECT id, server_id, first_name, last_name, username, email FROM users WHERE current = 0 OR current IS NULL";
     if(sqlite3_prepare_v2(database, [query UTF8String], -1, &stmt, nil) == SQLITE_OK) {
         while (sqlite3_step(stmt) == SQLITE_ROW) {
             Contact *u = [[Contact alloc] init];
             u.userId = sqlite3_column_int(stmt, 0);
             u.image = @"darthvader.jpg";
-            u.serverUserId = [NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 1)];
-            u.firstName = [NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 2)];
-            u.lastName = [NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 3)];
-            u.userName = [NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 4)];
-            u.email = [NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 5)];
+            char *serverUserId = (char*)sqlite3_column_text(stmt, 1);
+            if(serverUserId) {
+                u.serverUserId = @(serverUserId);
+            }
+            char *firstName = (char*)sqlite3_column_text(stmt, 2);
+            if(firstName) {
+                u.firstName = @(firstName);
+            }
+            char *lastName = (char*)sqlite3_column_text(stmt, 3);
+            if(lastName) {
+                u.lastName = @(lastName);
+            }
+            char *userName = (char*)sqlite3_column_text(stmt, 4);
+            if(userName) {
+                u.userName = @(userName);
+            }
+            char *email = (char*)sqlite3_column_text(stmt, 5);
+            if(email) {
+                u.email = @(email);
+            }
             [otherUsers addObject:u];
         }
         sqlite3_finalize(stmt);
