@@ -15,16 +15,17 @@
 +(NSMutableArray *) getContacts;
 +(void)setContacts:(NSMutableArray *)value;
 +(void)initializeContacts;
++(Contact*) selectedContact;
++(void) setSelectedContact:(Contact*)value;
 
 @property (nonatomic) int userId;
+@property (nonatomic) BOOL current;
 @property (strong, nonatomic) NSString *image;
+@property (strong, nonatomic) NSString *serverUserId;
 @property (strong, nonatomic) NSString *firstName;
 @property (strong, nonatomic) NSString *lastName;
 @property (strong, nonatomic) NSString *userName;
 @property (strong, nonatomic) NSString *email;
 @property (strong, nonatomic) NSString *accesstoken;
-
-
-
 
 @end

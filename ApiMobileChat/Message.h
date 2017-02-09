@@ -14,5 +14,6 @@
 @property NSString *sentTime;
 @property int userIdFrom;
 @property NSString *username;
+@property int chatId;
 
 @end

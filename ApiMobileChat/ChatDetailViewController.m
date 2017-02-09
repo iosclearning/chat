@@ -12,6 +12,7 @@
 #import "Message.h"
 #import "sqlite3.h"
 #import "DBManager.h"
+#import "Chat.h"
 
 #define keySendMessageCellIdentifier @"SendMessageCellIdentifier"
 #define keyReceivedMessageCellIdentifier @"ReceivedMessageCellIdentifier"
@@ -41,8 +42,11 @@
     [btnBack setImage:[UIImage imageNamed:@"back.png"]];
     
     self.navBar.topItem.leftBarButtonItem = btnBack;
-    
-    self.messages = [[DBManager getInstance] getMessages];
+    if(Chat.selectedChat) {
+        self.messages = [[DBManager getInstance] getMessages:Chat.selectedChat.id];
+    } else {
+        self.messages = [[NSMutableArray alloc] init];
+    }
     self.emptyDataText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.chatTableView.bounds.size.width, self.chatTableView.bounds.size.height)];
     
     self.emptyDataText.hidden = YES;
@@ -60,7 +64,8 @@
     Message *message = [[Message alloc] init];
     message.message = self.txtTypeMessage.text;
     message.sentTime = [NSString stringWithFormat:@"%@", [NSDate date]];
-    message.userIdFrom = 1;
+    message.userIdFrom = [[DBManager getInstance] currentUser].userId;
+    message.chatId = Chat.selectedChat.id;
     
     [self.messages addObject:message];
     

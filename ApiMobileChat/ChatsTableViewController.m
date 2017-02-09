@@ -8,6 +8,7 @@
 
 #import "ChatsTableViewController.h"
 #import "ChatsTableViewCell.h"
+#import "DBManager.h"
 static NSString *pCellIdent = @"ChatsCell";
 
 @interface ChatsTableViewControll
@@ -19,22 +20,14 @@ static NSString *pCellIdent = @"ChatsCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    _recentChats = [[NSMutableDictionary alloc] init];
-    
-    NSString *jStr = @"[{\"name\":\"Darth\",\"image\": \"darthvader\",\"message\": \"Hi!\"},{\"name\": \"Obi-Wan\",\"image\": \"obiwan\",\"message\": \"Don't talk to him\"}]";
-    
-    NSData *jData = [jStr dataUsingEncoding:NSUTF8StringEncoding];
-    
-    NSError *err;
-    
-    _recentChats = [NSJSONSerialization JSONObjectWithData:jData options:NSJSONReadingAllowFragments error:&err];
+    _recentChats = [[DBManager getInstance] getChats];
 }
 
 // This sets top margin of tableView so it does not get over batery indicator
@@ -76,43 +69,12 @@ static NSString *pCellIdent = @"ChatsCell";
         cell = [[ChatsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:pCellIdent];
     }
     
-    NSString *sName;
-    NSString *sImage;
-    NSString *sMessage;
+    Chat *chat = [_recentChats objectAtIndex:indexPath.row];
     
-    int i = 0;
+    [cell.chatName setText:chat.name];
+    [cell.chatMsg setText:@"Test"];
     
-    for (id row in _recentChats){
-        
-        if (indexPath.row == i)
-        {
-            
-            for (id key in row)
-            {
-                
-                if ([key isEqualToString:@"name"])
-                {
-                    sName = [row objectForKey:key];
-                }
-                if ([key isEqualToString:@"image"])
-                {
-                    sImage = [row objectForKey:key];
-                }
-                if ([key isEqualToString:@"message"])
-                {
-                    sMessage = [row objectForKey:key];
-                }
-            }
-            
-            
-        }
-        i++;
-    }
-    
-    [cell.chatName setText:sName];
-    [cell.chatMsg setText:sMessage];
-    
-    NSString *imagePath = [[NSBundle mainBundle] pathForResource:sImage ofType:@"jpg"];
+    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"darthvader" ofType:@"jpg"];
     
     if (imagePath !=nil) {
         
@@ -132,6 +94,12 @@ static NSString *pCellIdent = @"ChatsCell";
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIViewController *controller = [self.storyBoard instantiateViewControllerWithIdentifier:@"ChatDetailViewBoard"];
+    Chat *chat = [_recentChats objectAtIndex:indexPath.row];
+    Chat.selectedChat = chat;
+    [self.navigationController pushViewController:controller animated:YES];
+}
 
 
 // Override to support conditional editing of the table view.

@@ -8,6 +8,7 @@
 
 #import "ContactController.h"
 #import "Contact.h"
+#import "DBManager.h"
 
 static NSString *pCellIdentifier = @"Cell";
 
@@ -20,7 +21,7 @@ static NSString *pCellIdentifier = @"Cell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     // Fill local contacts
     self.contacts = [Contact getContacts];
     self.storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -132,7 +133,7 @@ static NSString *pCellIdentifier = @"Cell";
     // This is just a test.. Custom Alert Should be created
     
    Contact *contact = [_contacts objectAtIndex:indexPath.row];
-    
+    Contact.selectedContact = contact;
    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Edit Contact" message:nil preferredStyle:UIAlertControllerStyleAlert];
    //[alert.view setBackgroundColor:[UIColor colorWithRed:0.29 green:0.46 blue:0.29 alpha:1.0]];
    
@@ -148,6 +149,7 @@ static NSString *pCellIdentifier = @"Cell";
     
     UIAlertAction *chatButton = [UIAlertAction actionWithTitle:@"Start conversation" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
         UIViewController *controller = [self.storyBoard instantiateViewControllerWithIdentifier:@"ChatDetailViewBoard"];
+        [[DBManager getInstance] createChat:[NSString stringWithFormat:@"%@ %@", contact.firstName, contact.lastName] :contact.userId];
         [self.navigationController pushViewController:controller animated:YES];
     }];
     

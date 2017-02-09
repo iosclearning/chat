@@ -8,12 +8,19 @@
 
 #import <Foundation/Foundation.h>
 #import "Message.h"
+#import "Contact.h"
+#import "Chat.h"
 
 @interface DBManager : NSObject
 
 +(DBManager*)getInstance;
 -(void)insertDummyData;
--(NSMutableArray*)getMessages;
+-(void)createChat:(NSString*)name:(int)participant;
+-(NSMutableArray*)getMessages:(int)chatId;
+-(NSMutableArray*)getChats;
+-(void)insertUser:(Contact*)user;
 -(void)insertMessage:(Message*)message;
+-(Contact*)currentUser;
+-(NSMutableArray*)getOtherUsers;
 
 @end

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ChatsTableViewController : UITableViewController
-@property (strong, nonatomic) NSMutableDictionary *recentChats;
+@property (strong, nonatomic) NSMutableArray *recentChats;
+@property (strong, nonatomic) UIStoryboard *storyBoard;
 
 @end

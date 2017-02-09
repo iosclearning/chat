@@ -8,6 +8,8 @@
 
 #import "SignUpController.h"
 #import "MainViewController.h"
+#import "Contact.h"
+#import "DBManager.h"
 
 @interface SignUpController ()
 
@@ -134,7 +136,12 @@
                                                         NSLog(@"Response%@", httpResponse);
                                                         NSString* responseData = [[NSString alloc] initWithBytes:data.bytes length:data.length encoding:NSUTF8StringEncoding];
                                                         self.response = responseData;
-                                                        
+                                                        Contact *currentUser = [[Contact alloc] init];
+                                                        currentUser.email = self.EnterEmailTextField.text;
+                                                        currentUser.userName = self.EnterEmailTextField.text;
+                                                        currentUser.current = 1;
+                                                        currentUser.accesstoken = self.response;
+                                                        [[DBManager getInstance] insertUser:currentUser];
                                                     }}];
     [dataTask resume];
 }

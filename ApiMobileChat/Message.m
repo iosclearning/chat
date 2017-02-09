@@ -14,5 +14,6 @@
 @synthesize sentTime;
 @synthesize userIdFrom;
 @synthesize username;
+@synthesize chatId;
 
 @end
