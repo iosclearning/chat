@@ -24,6 +24,13 @@
 		C189B3B81E244FA500B5E8B8 /* darthvader.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C189B3B51E244FA500B5E8B8 /* darthvader.jpg */; };
 		C189B3B91E244FA500B5E8B8 /* obiwan.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C189B3B61E244FA500B5E8B8 /* obiwan.jpg */; };
 		C189B3BA1E244FA500B5E8B8 /* windu.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C189B3B71E244FA500B5E8B8 /* windu.jpg */; };
+		C1930DE51E5E30F200424981 /* 1485716652_users_mixed_gender_race.png in Resources */ = {isa = PBXBuildFile; fileRef = C1930DDE1E5E30F200424981 /* 1485716652_users_mixed_gender_race.png */; };
+		C1930DE61E5E30F200424981 /* 1485716946_Username.png in Resources */ = {isa = PBXBuildFile; fileRef = C1930DDF1E5E30F200424981 /* 1485716946_Username.png */; };
+		C1930DE71E5E30F200424981 /* 1485716959_Username_2.png in Resources */ = {isa = PBXBuildFile; fileRef = C1930DE01E5E30F200424981 /* 1485716959_Username_2.png */; };
+		C1930DE81E5E30F200424981 /* 1485716997_calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = C1930DE11E5E30F200424981 /* 1485716997_calendar.png */; };
+		C1930DE91E5E30F200424981 /* 1485717128_icon-114-lock.png in Resources */ = {isa = PBXBuildFile; fileRef = C1930DE21E5E30F200424981 /* 1485717128_icon-114-lock.png */; };
+		C1930DEA1E5E30F200424981 /* 1485717144_icon-115-lock-open.png in Resources */ = {isa = PBXBuildFile; fileRef = C1930DE31E5E30F200424981 /* 1485717144_icon-115-lock-open.png */; };
+		C1930DEB1E5E30F200424981 /* 1487035692_05_phonebook.png in Resources */ = {isa = PBXBuildFile; fileRef = C1930DE41E5E30F200424981 /* 1487035692_05_phonebook.png */; };
 		C1E6CEDD1E1AFFB60006A7B3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E6CEDC1E1AFFB60006A7B3 /* main.m */; };
 		C1E6CEE01E1AFFB60006A7B3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E6CEDF1E1AFFB60006A7B3 /* AppDelegate.m */; };
 		C1E6CEE81E1AFFB60006A7B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1E6CEE71E1AFFB60006A7B3 /* Assets.xcassets */; };
@@ -70,6 +77,13 @@
 		C189B3B51E244FA500B5E8B8 /* darthvader.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = darthvader.jpg; sourceTree = "<group>"; };
 		C189B3B61E244FA500B5E8B8 /* obiwan.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = obiwan.jpg; sourceTree = "<group>"; };
 		C189B3B71E244FA500B5E8B8 /* windu.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = windu.jpg; sourceTree = "<group>"; };
+		C1930DDE1E5E30F200424981 /* 1485716652_users_mixed_gender_race.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1485716652_users_mixed_gender_race.png; sourceTree = "<group>"; };
+		C1930DDF1E5E30F200424981 /* 1485716946_Username.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1485716946_Username.png; sourceTree = "<group>"; };
+		C1930DE01E5E30F200424981 /* 1485716959_Username_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1485716959_Username_2.png; sourceTree = "<group>"; };
+		C1930DE11E5E30F200424981 /* 1485716997_calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1485716997_calendar.png; sourceTree = "<group>"; };
+		C1930DE21E5E30F200424981 /* 1485717128_icon-114-lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1485717128_icon-114-lock.png"; sourceTree = "<group>"; };
+		C1930DE31E5E30F200424981 /* 1485717144_icon-115-lock-open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1485717144_icon-115-lock-open.png"; sourceTree = "<group>"; };
+		C1930DE41E5E30F200424981 /* 1487035692_05_phonebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1487035692_05_phonebook.png; sourceTree = "<group>"; };
 		C1E6CED81E1AFFB60006A7B3 /* ApiMobileChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ApiMobileChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1E6CEDC1E1AFFB60006A7B3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C1E6CEDE1E1AFFB60006A7B3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -159,6 +173,13 @@
 			isa = PBXGroup;
 			children = (
 				C1FB2B491E524068002BCA5D /* 1487035692_05_phonebook.png */,
+				C1930DDE1E5E30F200424981 /* 1485716652_users_mixed_gender_race.png */,
+				C1930DDF1E5E30F200424981 /* 1485716946_Username.png */,
+				C1930DE01E5E30F200424981 /* 1485716959_Username_2.png */,
+				C1930DE11E5E30F200424981 /* 1485716997_calendar.png */,
+				C1930DE21E5E30F200424981 /* 1485717128_icon-114-lock.png */,
+				C1930DE31E5E30F200424981 /* 1485717144_icon-115-lock-open.png */,
+				C1930DE41E5E30F200424981 /* 1487035692_05_phonebook.png */,
 				C1FB2B411E523A79002BCA5D /* 1485716946_Username.png */,
 				C1FB2B421E523A79002BCA5D /* 1485716959_Username_2.png */,
 				C1FB2B431E523A79002BCA5D /* 1485716997_calendar.png */,
@@ -351,15 +372,22 @@
 			files = (
 				5D0FE1901E3CDA290011D0D9 /* SendMessageCell.xib in Resources */,
 				C1FB2B3F1E523A63002BCA5D /* 1485716652_users_mixed_gender_race.png in Resources */,
+				C1930DE91E5E30F200424981 /* 1485717128_icon-114-lock.png in Resources */,
 				5D32722D1E2430C800A19FF9 /* Settings.bundle in Resources */,
 				C168A2141E1C137A00A93B8B /* Main.storyboard in Resources */,
 				C189B3BA1E244FA500B5E8B8 /* windu.jpg in Resources */,
 				C1FB2B461E523A79002BCA5D /* 1485716959_Username_2.png in Resources */,
 				C1FB2B471E523A79002BCA5D /* 1485716997_calendar.png in Resources */,
+				C1930DE61E5E30F200424981 /* 1485716946_Username.png in Resources */,
 				C1E6CEEB1E1AFFB60006A7B3 /* LaunchScreen.storyboard in Resources */,
 				C1FB2B451E523A79002BCA5D /* 1485716946_Username.png in Resources */,
+				C1930DEB1E5E30F200424981 /* 1487035692_05_phonebook.png in Resources */,
 				5D0FE18B1E3CD9E70011D0D9 /* ReceivedMessageCell.xib in Resources */,
+				C1930DE71E5E30F200424981 /* 1485716959_Username_2.png in Resources */,
+				C1930DEA1E5E30F200424981 /* 1485717144_icon-115-lock-open.png in Resources */,
+				C1930DE81E5E30F200424981 /* 1485716997_calendar.png in Resources */,
 				5DDE84EC1E41301F005D3A7A /* back.png in Resources */,
+				C1930DE51E5E30F200424981 /* 1485716652_users_mixed_gender_race.png in Resources */,
 				C189B3B81E244FA500B5E8B8 /* darthvader.jpg in Resources */,
 				C1FB2B481E523A79002BCA5D /* 1485717128_icon-114-lock.png in Resources */,
 				C1FB2B401E523A63002BCA5D /* 1485717144_icon-115-lock-open.png in Resources */,
