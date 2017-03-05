@@ -132,28 +132,17 @@
                                                         // Development environment.
                                                         NSLog(@"Error%@", error);
                                                     } else {
-                                                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                                                        // Development environment.
-                                                        NSLog(@"Response%@", httpResponse);
-                                                        NSString* responseData = [[NSString alloc] initWithBytes:data.bytes length:data.length encoding:NSUTF8StringEncoding];
-                                                        self.response = responseData;
-                                                        Contact *currentUser = [[DBManager getInstance] currentUser];
-                                                        if(!currentUser) {
-                                                            currentUser = [[Contact alloc] init];
-                                                        }
-                                                        currentUser.accesstoken = self.response;
-                                                        currentUser.email = self.EmailTextField.text;
-                                                        currentUser.userName = self.EmailTextField.text;
-                                                        currentUser.current = 1;
+                                                        NSDictionary *userData = [NSJSONSerialization JSONObjectWithData:data                                   options:0                                                                                                 error:NULL];
+                                                        NSLog(@"userData\n%@", userData);
+                                                        Contact *currentUser = [[Contact alloc] init];
+                                                        currentUser.userId = 1;//[userData[@"id"] intValue];
+                                                        currentUser.firstName = @"Anel";//userData[@"firstName"];
+                                                        currentUser.lastName = @"Memic";//userData[@"lastName"];
+                                                        currentUser.email = @"anelmemija@gmail.com";//userData[@"email"];
+                                                        currentUser.userName = @"anelmemija@gmail.com";//userData[@"username"];
+                                                        currentUser.current = YES;
+                                                        currentUser.accesstoken = @"3dfc6702";//userData[@"accessToken"];
                                                         [[DBManager getInstance] insertUser:currentUser];
-                                                        
-                                                        Contact *testUser = [[Contact alloc] init];
-                                                        testUser.firstName = @"Test";
-                                                        testUser.lastName = @"Testovic";
-                                                        testUser.userName = @"test@test.com";
-                                                        testUser.email = @"test@test.com";
-                                                        testUser.current = false;
-                                                        [[DBManager getInstance] insertUser:testUser];
                                                     }}];
     [dataTask resume];
 }

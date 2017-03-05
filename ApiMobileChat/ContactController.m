@@ -149,7 +149,35 @@ static NSString *pCellIdentifier = @"Cell";
     
     UIAlertAction *chatButton = [UIAlertAction actionWithTitle:@"Start conversation" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
         UIViewController *controller = [self.storyBoard instantiateViewControllerWithIdentifier:@"ChatDetailViewBoard"];
-        [[DBManager getInstance] createChat:[NSString stringWithFormat:@"%@ %@", contact.firstName, contact.lastName] :contact.userId];
+        
+        NSArray *participants = @[@([DBManager getInstance].currentUser.userId), @(contact.userId)];
+        NSString *chatName = [NSString stringWithFormat:@"%@ %@", contact.firstName, contact.lastName];
+        
+        /*NSDictionary *headers = @{ @"content-type": @"application/json" };
+        NSDictionary *parameters = @{ @"name": chatName,
+                                      @"participants": participants };
+        NSData *postData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://ioschatapi.azurewebsites.net/api/chat/createChat"]
+                                                               cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                           timeoutInterval:10.0];
+        [request setHTTPMethod:@"POST"];
+        [request setAllHTTPHeaderFields:headers];
+        [request setHTTPBody:postData];
+        NSURLSession *session = [NSURLSession sharedSession];
+        NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
+                                                    completionHandler:^(NSData *data,
+                                                                        NSURLResponse *response,
+                                                                        NSError *error) {
+                                                        if (error) {
+                                                            // Development environment.
+                                                            NSLog(@"Error%@", error);
+                                                        } else {
+                                                            
+                                                        }}];
+        [dataTask resume];*/
+        
+        [[DBManager getInstance] createChat:chatName:participants];
+        
         [self.navigationController pushViewController:controller animated:YES];
     }];
     

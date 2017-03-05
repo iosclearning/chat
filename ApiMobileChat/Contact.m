@@ -43,8 +43,8 @@ static Contact *selectedContact = nil;
                                                         
                                                         
                                                     }}];
-    [dataTask resume];*/
-    
+    [dataTask resume];
+    */
     
     
     [self setContacts: [DBManager getInstance].getOtherUsers];

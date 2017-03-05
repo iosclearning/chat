@@ -131,16 +131,13 @@
                                                         // Development environment.
                                                         NSLog(@"Error%@", error);
                                                     } else {
-                                                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                                                        // Development environment.
-                                                        NSLog(@"Response%@", httpResponse);
-                                                        NSString* responseData = [[NSString alloc] initWithBytes:data.bytes length:data.length encoding:NSUTF8StringEncoding];
-                                                        self.response = responseData;
+                                                        NSDictionary *userData = [NSJSONSerialization JSONObjectWithData:data                                   options:0                                                                                                 error:NULL];
+                                                        NSLog(@"userData\n%@", userData);
                                                         Contact *currentUser = [[Contact alloc] init];
-                                                        currentUser.email = self.EnterEmailTextField.text;
-                                                        currentUser.userName = self.EnterEmailTextField.text;
-                                                        currentUser.current = 1;
-                                                        currentUser.accesstoken = self.response;
+                                                        currentUser.userId = [userData[@"id"] intValue];
+                                                        currentUser.email = userData[@"email"];
+                                                        currentUser.current = YES;
+                                                        currentUser.accesstoken = userData[@"accessToken"];
                                                         [[DBManager getInstance] insertUser:currentUser];
                                                     }}];
     [dataTask resume];

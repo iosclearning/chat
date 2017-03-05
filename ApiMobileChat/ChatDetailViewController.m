@@ -53,6 +53,8 @@
     
     [self.chatTableView registerNib:[UINib nibWithNibName:@"SendMessageCell" bundle:nil] forCellReuseIdentifier:keySendMessageCellIdentifier];
     [self.chatTableView registerNib:[UINib nibWithNibName:@"ReceivedMessageCell" bundle:nil] forCellReuseIdentifier:keyReceivedMessageCellIdentifier];
+    
+    [NSTimer scheduledTimerWithTimeInterval:4.0F target:self selector:@selector(getMessagesFromServer:) userInfo:nil repeats:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,13 +69,38 @@
     message.userIdFrom = [[DBManager getInstance] currentUser].userId;
     message.chatId = Chat.selectedChat.id;
     
+    /*NSDictionary *headers = @{ @"content-type": @"application/json" };
+    NSDictionary *parameters = @{ @"message": message };
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://ioschatapi.azurewebsites.net/api/message/sendMessage"]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:10.0];
+    [request setHTTPMethod:@"POST"];
+    [request setAllHTTPHeaderFields:headers];
+    [request setHTTPBody:postData];
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
+                                                completionHandler:^(NSData *data,
+                                                                    NSURLResponse *response,
+                                                                    NSError *error) {
+                                                    if (error) {
+                                                        // Development environment.
+                                                        NSLog(@"Error%@", error);
+                                                    } else {
+                                                        
+                                                    }}];
+    [dataTask resume];*/
+    
+    NSLog(@"Chat id %d", Chat.selectedChat.id);
+    NSLog(@"Current user id %d", [[DBManager getInstance] currentUser].userId);
+    
     [self.messages addObject:message];
     
     [[DBManager getInstance] insertMessage:message];
     
-    NSIndexPath *newPath = [NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0];
+    NSArray *insertIndexPaths = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0]];
     
-    [self.chatTableView insertRowsAtIndexPaths:@[newPath] withRowAnimation:(UITableViewRowAnimationAutomatic)];
+    [self.chatTableView insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:(UITableViewRowAnimationAutomatic)];
     
     self.txtTypeMessage.text = @"";
     self.btnSend.enabled = NO;
@@ -88,7 +115,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    BOOL isSendMessageRow = ((Message *) self.messages[indexPath.row]).userIdFrom == 1;
+    BOOL isSendMessageRow = ((Message *) self.messages[indexPath.row]).userIdFrom == [[DBManager getInstance] currentUser].userId;
     
     NSString *cellIdentifier;
     
@@ -150,12 +177,43 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    BOOL isSendMessageRow = ((Message *) self.messages[indexPath.row]).userIdFrom == 1;
+    BOOL isSendMessageRow = ((Message *) self.messages[indexPath.row]).userIdFrom == [[DBManager getInstance] currentUser].userId;
     if(isSendMessageRow) {
         return 65.0;
     } else {
         return 100.0;
     }
+}
+
+- (void)getMessagesFromServer:(NSTimer*)timer {
+    /*NSDictionary *headers = @{ @"content-type": @"application/json" };
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://ioschatapi.azurewebsites.net/api/message/getUnreadMessages"]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:10.0];
+    [request setHTTPMethod:@"GET"];
+    [request setAllHTTPHeaderFields:headers];
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
+                                                completionHandler:^(NSData *data,
+                                                                    NSURLResponse *response,
+                                                                    NSError *error) {
+                                                    if (error) {
+                                                        // Development environment.
+                                                        NSLog(@"Error%@", error);
+                                                    } else {
+                                                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                                                        // Development environment.
+                                                        NSLog(@"Response%@", httpResponse);
+                                                        NSString* responseData = [[NSString alloc] initWithBytes:data.bytes length:data.length encoding:NSUTF8StringEncoding];
+                                                        
+                                                        NSArray *jsonObject = [NSJSONSerialization JSONObjectWithData:[responseData dataUsingEncoding:NSUTF8StringEncoding] options:0 error:NULL];
+                                                        
+                                                        
+                                                        
+                                                    }}];
+    [dataTask resume];*/
+
+    NSLog(@"message");
 }
 
 @end

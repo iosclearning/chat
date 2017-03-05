@@ -7,6 +7,7 @@
 //
 
 #import "ProfileViewController.h"
+#import "DBManager.h"
 #import <Foundation/Foundation.h>
 
 @interface ProfileViewController ()
@@ -26,7 +27,7 @@
     // Do any additional setup after loading the view.
     NSDictionary *headers = @{ @"content-type": @"application/json"};
     NSDictionary *parameters = @{ @"accessToken": @"3dfc6702" };
-    
+    NSLog(@"%@", [[DBManager getInstance] currentUser]);
     NSData *postData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://ioschatapi.azurewebsites.net/api/user/getuserdata"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];

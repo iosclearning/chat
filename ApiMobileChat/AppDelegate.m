@@ -17,7 +17,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [[DBManager getInstance] insertDummyData];
+    Contact *user = [[Contact alloc] init];
+    user.userId = 99;
+    user.firstName = @"Anela";
+    user.lastName = @"Kospo";
+    user.email = @"anela@gmail.com";
+    user.userName = @"anela";
+    user.current = NO;
+    [[DBManager getInstance] insertUser:user];
     return YES;
 }
 
