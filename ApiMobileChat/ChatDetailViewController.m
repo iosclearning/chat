@@ -42,11 +42,13 @@
     [btnBack setImage:[UIImage imageNamed:@"back.png"]];
     
     self.navBar.topItem.leftBarButtonItem = btnBack;
-    if(Chat.selectedChat) {
-        self.messages = [[DBManager getInstance] getMessages:Chat.selectedChat.id];
-    } else {
-        self.messages = [[NSMutableArray alloc] init];
-    }
+    
+    self.messages = [[DBManager getInstance] getMessages:_chatId];
+//    if(Chat.selectedChat) {
+//        
+//    } else {
+//        self.messages = [[NSMutableArray alloc] init];
+//    }
     self.emptyDataText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.chatTableView.bounds.size.width, self.chatTableView.bounds.size.height)];
     
     self.emptyDataText.hidden = YES;

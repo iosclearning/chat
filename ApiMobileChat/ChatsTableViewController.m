@@ -17,6 +17,45 @@ static NSString *pCellIdent = @"ChatsCell";
 
 @implementation ChatsTableViewController
 @synthesize recentChats = _recentChats;
+@synthesize chatsData = _chatsData;
+
+- (void) getAllChats :(NSTimer *)timer{
+    
+    NSDictionary *headers = @{ @"content-type": @"application/json"};
+
+    NSString *url = @"http://ioschatapia.azurewebsites.net/api/chat/getchats";
+                        
+    NSString *getURL = [NSString stringWithFormat:@"%@?userId=%@", url, @"1" ];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:getURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    [request setHTTPMethod:@"GET"];
+    [request setAllHTTPHeaderFields:headers];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
+                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                    if (error) {
+                                                        NSLog(@"Error getting response for ChatsView: %@", error);
+                                                    } else {
+                                                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+
+                                                        self.chatsData = [NSJSONSerialization JSONObjectWithData:data
+                                                                                                         options:0
+                                                                                                           error:NULL];
+                                                        
+                                                        NSLog(@"ChatsView data received.");
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            [self.tableView reloadData];
+
+                                                        });
+                                                                                                             
+                                                    }
+                                                }];
+    [dataTask resume];
+    
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -27,7 +66,19 @@ static NSString *pCellIdent = @"ChatsCell";
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    _recentChats = [[DBManager getInstance] getChats];
+    //_recentChats = [[DBManager getInstance] getChats];
+}
+
+-(void) viewDidAppear:(BOOL)animated {
+    self.timer = [NSTimer scheduledTimerWithTimeInterval: 5.0 target: self
+                                                selector: @selector(getAllChats:) userInfo: nil repeats: YES];
+    
+    [self.timer fire];
+}
+
+-(void) viewDidDisappear:(BOOL)animated{
+    [self.timer invalidate];
+    self.timer = nil;
 }
 
 // This sets top margin of tableView so it does not get over batery indicator
@@ -53,7 +104,7 @@ static NSString *pCellIdent = @"ChatsCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return [_recentChats count];
+    return [self.chatsData count];
     
     
 }
@@ -69,24 +120,28 @@ static NSString *pCellIdent = @"ChatsCell";
         cell = [[ChatsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:pCellIdent];
     }
     
-    Chat *chat = [_recentChats objectAtIndex:indexPath.row];
     
-    [cell.chatName setText:chat.name];
-    [cell.chatMsg setText:@"Test"];
+    NSDictionary *chatData = [self.chatsData objectAtIndex:indexPath.row];
     
-    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"darthvader" ofType:@"jpg"];
+    [cell.chatName setText:[chatData valueForKey:@"name"]];
+    [cell.chatMsg setText:[chatData valueForKey:@"lastMessage"]];
     
-    if (imagePath !=nil) {
-        
-        UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
-        
-//        NSLog(@"Image Path %@",imagePath);
-        
-        [cell.chatImage setImage:image];
-    }
-    else {
-        NSLog(@"Image Path Not Found");
-    }
+    NSString *sentTime = [[chatData valueForKey:@"sentTime"]substringToIndex:10];
+
+    [cell.chatDate setText:sentTime];
+    
+//    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"darthvader" ofType:@"jpg"];
+//    
+//    if (imagePath !=nil) {
+//        
+//        UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+//        
+//        
+//        [cell.chatImage setImage:image];
+//    }
+//    else {
+//        NSLog(@"Image Path Not Found");
+//    }
     
     
     //    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -95,8 +150,12 @@ static NSString *pCellIdent = @"ChatsCell";
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UIViewController *controller = [self.storyBoard instantiateViewControllerWithIdentifier:@"ChatDetailViewBoard"];
-    Chat *chat = [_recentChats objectAtIndex:indexPath.row];
+
+    ChatDetailViewController *controller = [self.storyBoard instantiateViewControllerWithIdentifier:@"ChatDetailViewBoard"];
+    NSString *idStr = [[self.chatsData objectAtIndex:indexPath.row] valueForKey:@"id"];
+    controller.chatId = [idStr intValue];
+
+    Chat *chat = [_chatsData objectAtIndex:indexPath.row];
     Chat.selectedChat = chat;
     [self.navigationController pushViewController:controller animated:YES];
 }
