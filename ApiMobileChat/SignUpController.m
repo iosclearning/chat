@@ -10,6 +10,7 @@
 #import "MainViewController.h"
 #import "Contact.h"
 #import "DBManager.h"
+#import "Common.h"
 
 @interface SignUpController ()
 
@@ -116,7 +117,7 @@
     NSDictionary *parameters = @{ @"email": self.EnterEmailTextField.text,
                                   @"password": self.EnterPasswordTextField.text };
     NSData *postData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://ioschatapi.azurewebsites.net/api/user/register"]
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", Common.ApiUrl, @"user/register"]]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:10.0];
     [request setHTTPMethod:@"POST"];

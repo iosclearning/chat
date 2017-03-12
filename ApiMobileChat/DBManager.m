@@ -73,7 +73,7 @@ static Contact *thisUser = nil;
         NSAssert(0, @"Error creating table: %s", errorMsg);
     }
     
-    NSString *creatGroupUsersTableSQL = @"CREATE TABLE IF NOT EXISTS group_users (user_id_participant INTEGER, chat_id INTEGER, PRIMARY KEY(user_id_participant, chat_id)); ";
+    NSString *creatGroupUsersTableSQL = @"CREATE TABLE IF NOT EXISTS group_users (id INTEGER PRIMARY KEY, user_id_participant INTEGER, chat_id INTEGER); ";
     
     if(sqlite3_exec(database, [creatGroupUsersTableSQL UTF8String], NULL, NULL, &errorMsg) != SQLITE_OK) {
         sqlite3_close(database);
@@ -97,7 +97,6 @@ static Contact *thisUser = nil;
     }
     for (int i = 1; i <= 2; i++) {
         char *updateUser = "INSERT OR REPLACE INTO users (id, first_name, last_name, username, email, access_token) VALUES (?, ?, ?, ?, ?, ?);";
-        char *errorMsg = NULL;
         if(sqlite3_prepare_v2(database, updateUser, -1, &stmt, nil) == SQLITE_OK) {
             sqlite3_bind_int(stmt, 1, i);
             sqlite3_bind_text(stmt, 2, (i == 1) ? "Zajim" : "Anela", -1, NULL);
@@ -107,13 +106,12 @@ static Contact *thisUser = nil;
             sqlite3_bind_text(stmt, 6, "1234567890", -1, NULL);
         }
         if(sqlite3_step(stmt) != SQLITE_DONE) {
-            NSAssert(0, @"Error updating table: %s", errorMsg);
+            NSAssert(0, @"Error updating table: %s", sqlite3_errmsg(database));
         }
         sqlite3_finalize(stmt);
     }
     
     char *updateChat = "INSERT OR REPLACE INTO chat (id, name, is_group, created_date) VALUES (?, ?, ?, ?);";
-    char *errorMsg = NULL;
     if(sqlite3_prepare_v2(database, updateChat, -1, &stmt, nil) == SQLITE_OK) {
         sqlite3_bind_int(stmt, 1, 1);
         sqlite3_bind_text(stmt, 2, "Chat", -1, NULL);
@@ -121,37 +119,34 @@ static Contact *thisUser = nil;
         sqlite3_bind_text(stmt, 4, [[NSString stringWithFormat:@"%@", [NSDate date]] UTF8String], -1, NULL);
     }
     if(sqlite3_step(stmt) != SQLITE_DONE) {
-        NSAssert(0, @"Error updating table: %s", errorMsg);
+        NSAssert(0, @"Error updating table: %s", sqlite3_errmsg(database));
     }
     sqlite3_finalize(stmt);
     
     char *updateGroupUsers1 = "INSERT OR REPLACE INTO group_users (id, user_id_participant, chat_id) VALUES (?, ?, ?);";
-    char *errorMsg1 = NULL;
     if(sqlite3_prepare_v2(database, updateGroupUsers1, -1, &stmt, nil) == SQLITE_OK) {
         sqlite3_bind_int(stmt, 1, 1);
         sqlite3_bind_int(stmt, 2, 1);
         sqlite3_bind_int(stmt, 3, 1);
     }
     if(sqlite3_step(stmt) != SQLITE_DONE) {
-        NSAssert(0, @"Error updating table: %s", errorMsg1);
+        NSAssert(0, @"Error updating table: %s", sqlite3_errmsg(database));
     }
     sqlite3_finalize(stmt);
     
     char *updateGroupUsers2 = "INSERT OR REPLACE INTO group_users (id, user_id_participant, chat_id) VALUES (?, ?, ?);";
-    char *errorMsg2 = NULL;
     if(sqlite3_prepare_v2(database, updateGroupUsers2, -1, &stmt, nil) == SQLITE_OK) {
         sqlite3_bind_int(stmt, 1, 2);
         sqlite3_bind_int(stmt, 2, 2);
         sqlite3_bind_int(stmt, 3, 1);
     }
     if(sqlite3_step(stmt) != SQLITE_DONE) {
-        NSAssert(0, @"Error updating table: %s", errorMsg2);
+        NSAssert(0, @"Error updating table: %s", sqlite3_errmsg(database));
     }
     sqlite3_finalize(stmt);
     
     for (int i = 1; i <= 3; i++) {
         char *updateMessage = "INSERT OR REPLACE INTO messages (user_id_from, sent_time, message, chat_id) VALUES (?, ?, ?, ?);";
-        char *errorMsg = NULL;
         if(sqlite3_prepare_v2(database, updateMessage, -1, &stmt, nil) == SQLITE_OK) {
             sqlite3_bind_int(stmt, 1, (i == 1) ? 1 : 2);
             sqlite3_bind_text(stmt, 2, [[NSString stringWithFormat:@"%@", [NSDate date]] UTF8String], -1, NULL);
@@ -159,7 +154,7 @@ static Contact *thisUser = nil;
             sqlite3_bind_int(stmt, 4, 1);
         }
         if(sqlite3_step(stmt) != SQLITE_DONE) {
-            NSAssert(0, @"Error updating table: %s", errorMsg);
+            NSAssert(0, @"Error updating table: %s", sqlite3_errmsg(database));
         }
         sqlite3_finalize(stmt);
     }
@@ -167,13 +162,12 @@ static Contact *thisUser = nil;
     sqlite3_close(database);
 }
 
--(void)createChat:(NSString *)name:(NSArray*)participants {
+-(void)createChat:(NSString *)name participants:(NSArray*)participants {
     if(sqlite3_open([[self dataFilePath] UTF8String], &database) != SQLITE_OK) {
         sqlite3_close(database);
         NSAssert(0, @"Failed to open database");
     }
     char *updateChat = "INSERT OR REPLACE INTO chat (id, name, is_group, created_date) VALUES (?, ?, ?, ?);";
-    char *errorMsg = NULL;
     int chatId = 1;
     if(sqlite3_prepare_v2(database, updateChat, -1, &stmt, nil) == SQLITE_OK) {
         sqlite3_bind_int(stmt, 1, chatId);
@@ -182,19 +176,18 @@ static Contact *thisUser = nil;
         sqlite3_bind_text(stmt, 4, [[NSString stringWithFormat:@"%@", [NSDate date]] UTF8String], -1, NULL);
     }
     if(sqlite3_step(stmt) != SQLITE_DONE) {
-        NSAssert(0, @"Error updating table: %s", errorMsg);
+        NSAssert(0, @"Error updating table: %s", sqlite3_errmsg(database));
     }
     
     sqlite3_finalize(stmt);
     for (int i = 0; i < [participants count]; i++) {
         char *updateGroupUsers1 = "INSERT OR REPLACE INTO group_users (user_id_participant, chat_id) VALUES (?, ?);";
-        char *errorMsg1 = NULL;
         if(sqlite3_prepare_v2(database, updateGroupUsers1, -1, &stmt, nil) == SQLITE_OK) {
             sqlite3_bind_int(stmt, 1, (int)participants[i]);
             sqlite3_bind_int64(stmt, 2, chatId);
         }
         if(sqlite3_step(stmt) != SQLITE_DONE) {
-            NSAssert(0, @"Error updating table: %s", errorMsg1);
+            NSAssert(0, @"Error updating table: %s", sqlite3_errmsg(database));
         }
         sqlite3_finalize(stmt);
     }
@@ -259,17 +252,15 @@ static Contact *thisUser = nil;
     char *updateUser;
     if(user.current == true) {
         updateUser = "UPDATE users SET current = 0";
-        char *errorMsg = NULL;
         if(sqlite3_prepare_v2(database, updateUser, -1, &stmt, nil) == SQLITE_OK) {
             if(sqlite3_step(stmt) != SQLITE_DONE) {
-                NSAssert(0, @"Error updating table: %s", errorMsg);
+                NSAssert(0, @"Error updating table: %s", sqlite3_errmsg(database));
             }
         }
         sqlite3_finalize(stmt);
     }
     
     updateUser = "INSERT OR REPLACE INTO users (id, first_name, last_name, username, email, access_token, current) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    char *errorMsg = NULL;
     if(sqlite3_prepare_v2(database, updateUser, -1, &stmt, nil) == SQLITE_OK) {
         sqlite3_bind_int(stmt, 1, user.userId);
         sqlite3_bind_text(stmt, 2, [[NSString stringWithFormat:@"%@", user.firstName] UTF8String], -1, NULL);
@@ -280,26 +271,25 @@ static Contact *thisUser = nil;
         sqlite3_bind_int(stmt, 7, user.current == true ? 1 : 0);
     }
     if(sqlite3_step(stmt) != SQLITE_DONE) {
-        NSAssert(0, @"Error updating table: %s", errorMsg);
+        NSAssert(0, @"Error updating table: %s", sqlite3_errmsg(database));
     }
     sqlite3_finalize(stmt);
     sqlite3_close(database);
 }
 
--(void)insertUserContact:(int)userFriendId {
+-(void)insertUserContact:(int)userIdMain userIdFriend:(int)userFriendId {
     if(sqlite3_open([[self dataFilePath] UTF8String], &database) != SQLITE_OK) {
         sqlite3_close(database);
         NSAssert(0, @"Failed to open database");
     }
     
-    char *updateUserContact = "INSERT OR REPLACE INTO user_contact (user_id_main, user_id_friend) VALUES (?, ?)";
-    char *errorMsg = NULL;
+    char *updateUserContact = "INSERT OR REPLACE INTO user_contact (user_id_main, user_id_friend) VALUES (?, ?);";
     if(sqlite3_prepare_v2(database, updateUserContact, -1, &stmt, nil) == SQLITE_OK) {
-        sqlite3_bind_int(stmt, 1, self.currentUser.userId);
-        sqlite3_bind_int(stmt, 1, userFriendId);
+        sqlite3_bind_int(stmt, 1, userIdMain);
+        sqlite3_bind_int(stmt, 2, userFriendId);
     }
     if(sqlite3_step(stmt) != SQLITE_DONE) {
-        NSAssert(0, @"Error updating table: %s", errorMsg);
+        NSAssert(0, @"Error updating table: %s", sqlite3_errmsg(database));
     }
     sqlite3_finalize(stmt);
     sqlite3_close(database);
@@ -311,7 +301,6 @@ static Contact *thisUser = nil;
         NSAssert(0, @"Failed to open database");
     }
     char *updateMessage = "INSERT OR REPLACE INTO messages (user_id_from, sent_time, message, chat_id) VALUES (?, ?, ?, ?);";
-    char *errorMsg = NULL;
     if(sqlite3_prepare_v2(database, updateMessage, -1, &stmt, nil) == SQLITE_OK) {
         sqlite3_bind_int(stmt, 1, message.userIdFrom);
         sqlite3_bind_text(stmt, 2, [[NSString stringWithFormat:@"%@", message.sentTime] UTF8String], -1, NULL);
@@ -319,7 +308,7 @@ static Contact *thisUser = nil;
         sqlite3_bind_int(stmt, 4, message.chatId);
     }
     if(sqlite3_step(stmt) != SQLITE_DONE) {
-        NSAssert(0, @"Error updating table: %s", errorMsg);
+        NSAssert(0, @"Error updating table: %s", sqlite3_errmsg(database));
     }
     sqlite3_finalize(stmt);
     sqlite3_close(database);
@@ -363,13 +352,13 @@ static Contact *thisUser = nil;
     return thisUser;
 }
 
--(NSMutableArray *)getOtherUsers {
+-(NSMutableArray *)getUsersContacts:(int)userId {
     NSMutableArray *otherUsers = [[NSMutableArray alloc] init];
     if(sqlite3_open([[self dataFilePath] UTF8String], &database) != SQLITE_OK) {
         sqlite3_close(database);
         NSAssert(0, @"Failed to open database");
     }
-    NSString *query = @"SELECT id, first_name, last_name, username, email FROM users WHERE current = 0 OR current IS NULL";
+    NSString *query = [NSString stringWithFormat:@"SELECT u.id, u.first_name, u.last_name, u.username, u.email FROM user_contact uc INNER JOIN users u ON uc.user_id_friend = u.id WHERE uc.user_id_main = %d", userId];
     if(sqlite3_prepare_v2(database, [query UTF8String], -1, &stmt, nil) == SQLITE_OK) {
         while (sqlite3_step(stmt) == SQLITE_ROW) {
             Contact *u = [[Contact alloc] init];

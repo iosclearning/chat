@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "DBManager.h"
+#import "Common.h"
 
 @interface AppDelegate ()
 
@@ -16,15 +17,6 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    Contact *user = [[Contact alloc] init];
-    user.userId = 99;
-    user.firstName = @"Anela";
-    user.lastName = @"Kospo";
-    user.email = @"anela@gmail.com";
-    user.userName = @"anela";
-    user.current = NO;
-    [[DBManager getInstance] insertUser:user];
     return YES;
 }
 

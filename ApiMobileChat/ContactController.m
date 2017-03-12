@@ -9,6 +9,7 @@
 #import "ContactController.h"
 #import "Contact.h"
 #import "DBManager.h"
+#import "Common.h"
 
 static NSString *pCellIdentifier = @"Cell";
 
@@ -21,9 +22,10 @@ static NSString *pCellIdentifier = @"Cell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // Fill local contacts
-    self.contacts = [[DBManager getInstance] getOtherUsers];
+    int currentUserId = [[DBManager getInstance] currentUser].userId;
+    // Fill local contacts    
+    self.contacts = [[DBManager getInstance] getUsersContacts:currentUserId];
+    NSLog(@"Contacts %@", self.contacts);
     self.storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
 }
 
@@ -97,7 +99,7 @@ static NSString *pCellIdentifier = @"Cell";
     // Get Contact on specified row
     Contact *contact = [self.contacts objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%@", contact.userName];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@", contact.email];
     cell.imageView.image = [self getImageByName : contact.image];
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -152,17 +154,13 @@ static NSString *pCellIdentifier = @"Cell";
         
         NSArray *participants = @[@([DBManager getInstance].currentUser.userId), @(contact.userId)];
         NSString *chatName = [NSString stringWithFormat:@"%@ %@", contact.firstName, contact.lastName];
-        
-        /*NSDictionary *headers = @{ @"content-type": @"application/json" };
-        NSDictionary *parameters = @{ @"name": chatName,
-                                      @"participants": participants };
-        NSData *postData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://ioschatapi.azurewebsites.net/api/chat/createChat"]
+        Contact.selectedContact = contact;
+        NSDictionary *headers = @{ @"content-type": @"application/json" };
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%d%@%d", Common.ApiUrl, @"chats/createchat?firstUser=", [DBManager getInstance].currentUser.userId, @"&secondUser=", contact.userId]]
                                                                cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                            timeoutInterval:10.0];
         [request setHTTPMethod:@"POST"];
         [request setAllHTTPHeaderFields:headers];
-        [request setHTTPBody:postData];
         NSURLSession *session = [NSURLSession sharedSession];
         NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
                                                     completionHandler:^(NSData *data,
@@ -174,9 +172,9 @@ static NSString *pCellIdentifier = @"Cell";
                                                         } else {
                                                             
                                                         }}];
-        [dataTask resume];*/
+        [dataTask resume];
         
-        [[DBManager getInstance] createChat:chatName:participants];
+        [[DBManager getInstance] createChat:chatName participants:participants];
         
         [self.navigationController pushViewController:controller animated:YES];
     }];

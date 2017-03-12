@@ -9,6 +9,7 @@
 #import "ProfileViewController.h"
 #import "DBManager.h"
 #import <Foundation/Foundation.h>
+#import "Common.h"
 
 @interface ProfileViewController ()
 
@@ -30,7 +31,7 @@
     NSLog(@"%@", [[DBManager getInstance] currentUser]);
     NSData *postData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://ioschatapi.azurewebsites.net/api/user/getuserdata"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", Common.ApiUrl, @"user/getuserdata"]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
     [request setHTTPMethod:@"POST"];
     [request setAllHTTPHeaderFields:headers];
     [request setHTTPBody:postData];
@@ -120,7 +121,7 @@
     
     NSData *postData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://ioschatapi.azurewebsites.net/api/user/updateuserdata"]
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", Common.ApiUrl, @"user/updateuserdata"]]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:10.0];
     [request setHTTPMethod:@"POST"];

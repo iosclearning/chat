@@ -14,7 +14,6 @@
 // Static
 +(NSMutableArray *) getContacts;
 +(void)setContacts:(NSMutableArray *)value;
-+(void)initializeContacts;
 +(Contact*) selectedContact;
 +(void) setSelectedContact:(Contact*)value;
 

@@ -9,6 +9,7 @@
 #import "ChatsTableViewController.h"
 #import "ChatsTableViewCell.h"
 #import "DBManager.h"
+#import "Common.h"
 static NSString *pCellIdent = @"ChatsCell";
 
 @interface ChatsTableViewControll
@@ -23,9 +24,9 @@ static NSString *pCellIdent = @"ChatsCell";
     
     NSDictionary *headers = @{ @"content-type": @"application/json"};
 
-    NSString *url = @"http://ioschatapia.azurewebsites.net/api/chat/getchats";
+    NSString *url = Common.ApiUrl;
                         
-    NSString *getURL = [NSString stringWithFormat:@"%@?userId=%@", url, @"1" ];
+    NSString *getURL = [NSString stringWithFormat:@"%@?userId=%d", url, [DBManager getInstance].currentUser.userId ];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:getURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     [request setHTTPMethod:@"GET"];

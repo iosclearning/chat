@@ -10,6 +10,7 @@
 #import "LogInController.h"
 #import "Contact.h"
 #import "DBManager.h"
+#import "Common.h"
 
 @interface LogInController ()
 
@@ -117,7 +118,7 @@
     NSDictionary *parameters = @{ @"email": self.EmailTextField.text,
                                   @"password": self.PasswordTextField.text };
     NSData *postData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://ioschatapi.azurewebsites.net/api/user/login"]
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", Common.ApiUrl, @"user/login"]]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:10.0];
     [request setHTTPMethod:@"POST"];
@@ -135,20 +136,19 @@
                                                         NSDictionary *userData = [NSJSONSerialization JSONObjectWithData:data                                   options:0                                                                                                 error:NULL];
                                                         NSLog(@"userData\n%@", userData);
                                                         Contact *currentUser = [[Contact alloc] init];
-                                                        currentUser.userId = 1;//[userData[@"id"] intValue];
-                                                        currentUser.firstName = @"Anel";//userData[@"firstName"];
-                                                        currentUser.lastName = @"Memic";//userData[@"lastName"];
-                                                        currentUser.email = @"anelmemija@gmail.com";//userData[@"email"];
-                                                        currentUser.userName = @"anelmemija@gmail.com";//userData[@"username"];
+                                                        currentUser.userId = [userData[@"id"] intValue];
+                                                        currentUser.firstName = userData[@"firstName"];
+                                                        currentUser.lastName = userData[@"lastName"];
+                                                        currentUser.email = userData[@"email"];
+                                                        currentUser.userName = userData[@"username"];
                                                         currentUser.current = YES;
-                                                        currentUser.accesstoken = @"3dfc6702";//userData[@"accessToken"];
+                                                        currentUser.accesstoken = userData[@"accessToken"];
                                                         [[DBManager getInstance] insertUser:currentUser];
                                                     }}];
     [dataTask resume];
 }
 
 -(void) LogIn {
-    [Contact initializeContacts];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     MainTabBarController *controller = (MainTabBarController *)[storyboard instantiateViewControllerWithIdentifier:@"MainTabBar"];
     [self.navigationController pushViewController:controller animated:YES];

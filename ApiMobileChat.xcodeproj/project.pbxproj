@@ -16,6 +16,7 @@
 		5D32722D1E2430C800A19FF9 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5D32722C1E2430C800A19FF9 /* Settings.bundle */; };
 		5D4268951E429AFC00FB1ACA /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D4268941E429AFC00FB1ACA /* libsqlite3.tbd */; };
 		5D722B771E4A6F9600A43CC9 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D722B761E4A6F9600A43CC9 /* DBManager.m */; };
+		5D8D99BB1E70A3DF00356F87 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8D99BA1E70A3DF00356F87 /* Common.m */; };
 		5DBC7B8B1E4BE60300EAD8BC /* Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DBC7B8A1E4BE60300EAD8BC /* Chat.m */; };
 		5DDE84EC1E41301F005D3A7A /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 5DDE84EB1E41301F005D3A7A /* back.png */; };
 		C168A20F1E1C075F00A93B8B /* ContactController.m in Sources */ = {isa = PBXBuildFile; fileRef = C168A20E1E1C075F00A93B8B /* ContactController.m */; };
@@ -59,6 +60,8 @@
 		5D4268941E429AFC00FB1ACA /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		5D722B751E4A6F9600A43CC9 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
 		5D722B761E4A6F9600A43CC9 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
+		5D8D99B91E70A3DF00356F87 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		5D8D99BA1E70A3DF00356F87 /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
 		5DBC7B891E4BE60300EAD8BC /* Chat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chat.h; sourceTree = "<group>"; };
 		5DBC7B8A1E4BE60300EAD8BC /* Chat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chat.m; sourceTree = "<group>"; };
 		5DDE84EB1E41301F005D3A7A /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
@@ -198,6 +201,8 @@
 				C1E6CEF21E1B0D0A0006A7B3 /* Model */,
 				C1E6CEDB1E1AFFB60006A7B3 /* Supporting Files */,
 				5D32722C1E2430C800A19FF9 /* Settings.bundle */,
+				5D8D99B91E70A3DF00356F87 /* Common.h */,
+				5D8D99BA1E70A3DF00356F87 /* Common.m */,
 			);
 			path = ApiMobileChat;
 			sourceTree = "<group>";
@@ -382,6 +387,7 @@
 				EA490F531E2D798000C2EFF5 /* ChatsTableViewCell.m in Sources */,
 				C168A20F1E1C075F00A93B8B /* ContactController.m in Sources */,
 				EA490F561E2D7A8A00C2EFF5 /* ChatsTableViewController.m in Sources */,
+				5D8D99BB1E70A3DF00356F87 /* Common.m in Sources */,
 				EA490F501E2D760700C2EFF5 /* MainTabBarController.m in Sources */,
 				C1E6CEF51E1B12130006A7B3 /* Contact.m in Sources */,
 				C16FD08E1E26ECD000A2897E /* MainViewController.m in Sources */,

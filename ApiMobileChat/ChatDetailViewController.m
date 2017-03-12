@@ -13,6 +13,7 @@
 #import "sqlite3.h"
 #import "DBManager.h"
 #import "Chat.h"
+#import "Common.h"
 
 #define keySendMessageCellIdentifier @"SendMessageCellIdentifier"
 #define keyReceivedMessageCellIdentifier @"ReceivedMessageCellIdentifier"
@@ -43,7 +44,7 @@
     
     self.navBar.topItem.leftBarButtonItem = btnBack;
     
-    self.messages = [[DBManager getInstance] getMessages:_chatId];
+    self.messages = [[DBManager getInstance] getMessages:Chat.selectedChat.id];
 //    if(Chat.selectedChat) {
 //        
 //    } else {
@@ -71,10 +72,15 @@
     message.userIdFrom = [[DBManager getInstance] currentUser].userId;
     message.chatId = Chat.selectedChat.id;
     
-    /*NSDictionary *headers = @{ @"content-type": @"application/json" };
-    NSDictionary *parameters = @{ @"message": message };
+    NSDictionary *headers = @{ @"content-type": @"application/json" };
+    NSDictionary *parameters = @{
+                                    @"MessageText": message,
+                                    @"UserIdFrom": [NSNumber numberWithInt:[DBManager getInstance].currentUser.userId],
+                                    @"UserId": [NSNumber numberWithInt:Contact.selectedContact.userId],
+                                    @"ChatsId": [NSNumber numberWithInt:Chat.selectedChat.id]
+                                 };
     NSData *postData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://ioschatapi.azurewebsites.net/api/message/sendMessage"]
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", Common.ApiUrl, @"message/sendMessage"]]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:10.0];
     [request setHTTPMethod:@"POST"];
@@ -91,7 +97,7 @@
                                                     } else {
                                                         
                                                     }}];
-    [dataTask resume];*/
+    [dataTask resume];
     
     NSLog(@"Chat id %d", Chat.selectedChat.id);
     NSLog(@"Current user id %d", [[DBManager getInstance] currentUser].userId);
@@ -188,8 +194,8 @@
 }
 
 - (void)getMessagesFromServer:(NSTimer*)timer {
-    /*NSDictionary *headers = @{ @"content-type": @"application/json" };
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://ioschatapi.azurewebsites.net/api/message/getUnreadMessages"]
+    NSDictionary *headers = @{ @"content-type": @"application/json" };
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%d", Common.ApiUrl, @"message/GetMessages?chatId=", [DBManager getInstance].currentUser.userId]]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:10.0];
     [request setHTTPMethod:@"GET"];
@@ -213,7 +219,7 @@
                                                         
                                                         
                                                     }}];
-    [dataTask resume];*/
+    [dataTask resume];
 
     NSLog(@"message");
 }
