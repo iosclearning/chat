@@ -74,7 +74,7 @@
     
     NSDictionary *headers = @{ @"content-type": @"application/json" };
     NSDictionary *parameters = @{
-                                    @"MessageText": message,
+                                    @"MessageText": message.message,
                                     @"UserIdFrom": [NSNumber numberWithInt:[DBManager getInstance].currentUser.userId],
                                     @"UserId": [NSNumber numberWithInt:Contact.selectedContact.userId],
                                     @"ChatsId": [NSNumber numberWithInt:Chat.selectedChat.id]
