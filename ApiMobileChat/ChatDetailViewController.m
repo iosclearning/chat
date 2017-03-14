@@ -44,7 +44,7 @@
     
     self.navBar.topItem.leftBarButtonItem = btnBack;
     
-    self.messages = [[DBManager getInstance] getMessages:Chat.selectedChat.id];
+    self.messages = [[DBManager getInstance] getMessages:self.chatId];
 //    if(Chat.selectedChat) {
 //        
 //    } else {
@@ -56,8 +56,14 @@
     
     [self.chatTableView registerNib:[UINib nibWithNibName:@"SendMessageCell" bundle:nil] forCellReuseIdentifier:keySendMessageCellIdentifier];
     [self.chatTableView registerNib:[UINib nibWithNibName:@"ReceivedMessageCell" bundle:nil] forCellReuseIdentifier:keyReceivedMessageCellIdentifier];
-    
-    [NSTimer scheduledTimerWithTimeInterval:4.0F target:self selector:@selector(getMessagesFromServer:) userInfo:nil repeats:YES];
+
+    self.timer = [NSTimer scheduledTimerWithTimeInterval: 4.0 target: self selector: @selector(getMessagesFromServer:) userInfo: nil repeats: YES];
+    [self.timer fire];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [self.timer invalidate];
+    self.timer = nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,7 +76,7 @@
     message.message = self.txtTypeMessage.text;
     message.sentTime = [NSString stringWithFormat:@"%@", [NSDate date]];
     message.userIdFrom = [[DBManager getInstance] currentUser].userId;
-    message.chatId = Chat.selectedChat.id;
+    message.chatId = (int)self.chatId;
     
     NSDictionary *headers = @{ @"content-type": @"application/json" };
     NSDictionary *parameters = @{
@@ -195,7 +201,7 @@
 
 - (void)getMessagesFromServer:(NSTimer*)timer {
     NSDictionary *headers = @{ @"content-type": @"application/json" };
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%d", Common.ApiUrl, @"message/GetMessages?chatId=", [DBManager getInstance].currentUser.userId]]
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%ld", Common.ApiUrl, @"message/GetMessages?chatId=", self.chatId]]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:10.0];
     [request setHTTPMethod:@"GET"];
@@ -209,15 +215,25 @@
                                                         // Development environment.
                                                         NSLog(@"Error%@", error);
                                                     } else {
-                                                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                                                        // Development environment.
-                                                        NSLog(@"Response%@", httpResponse);
-                                                        NSString* responseData = [[NSString alloc] initWithBytes:data.bytes length:data.length encoding:NSUTF8StringEncoding];
-                                                        
-                                                        NSArray *jsonObject = [NSJSONSerialization JSONObjectWithData:[responseData dataUsingEncoding:NSUTF8StringEncoding] options:0 error:NULL];
-                                                        
-                                                        
-                                                        
+                                                        NSArray *messages = [NSJSONSerialization JSONObjectWithData:data                                   options:0                                                                                                 error:NULL];
+                                                        NSLog(@"messages\n%@", messages);
+                                                        for (int i = 0; i < messages.count; i++) {
+                                                            Message *message = [[Message alloc] init];
+                                                            message.message = messages[i][@"messageText"];
+                                                            message.sentTime = [NSString stringWithFormat:@"%@", messages[i][@"sentTime"]];
+                                                            message.userIdFrom = 4;
+                                                            message.chatId = messages[i][@"chatsId"];
+                                                            [self.messages addObject:message];
+                                                            
+                                                            [[DBManager getInstance] insertMessage:message];
+                                                            
+                                                            NSArray *insertIndexPaths = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0]];
+                                                            
+                                                            dispatch_sync(dispatch_get_main_queue(), ^{
+                                                                [self.chatTableView insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:(UITableViewRowAnimationAutomatic)];
+                                                            });
+                                                        }
+
                                                     }}];
     [dataTask resume];
 

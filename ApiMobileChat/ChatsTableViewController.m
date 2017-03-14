@@ -26,7 +26,7 @@ static NSString *pCellIdent = @"ChatsCell";
 
     NSString *url = Common.ApiUrl;
                         
-    NSString *getURL = [NSString stringWithFormat:@"%@?userId=%d", url, [DBManager getInstance].currentUser.userId ];
+    NSString *getURL = [NSString stringWithFormat:@"%@chats/getChats?userId=%d", url, [DBManager getInstance].currentUser.userId ];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:getURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     [request setHTTPMethod:@"GET"];
@@ -38,11 +38,11 @@ static NSString *pCellIdent = @"ChatsCell";
                                                     if (error) {
                                                         NSLog(@"Error getting response for ChatsView: %@", error);
                                                     } else {
-                                                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-
                                                         self.chatsData = [NSJSONSerialization JSONObjectWithData:data
                                                                                                          options:0
                                                                                                            error:NULL];
+                                                        
+                                                        NSLog(@"Chats: %@", self.chatsData);
                                                         
                                                         NSLog(@"ChatsView data received.");
                                                         
@@ -124,10 +124,23 @@ static NSString *pCellIdent = @"ChatsCell";
     
     NSDictionary *chatData = [self.chatsData objectAtIndex:indexPath.row];
     
-    [cell.chatName setText:[chatData valueForKey:@"name"]];
-    [cell.chatMsg setText:[chatData valueForKey:@"lastMessage"]];
+    NSLog(@"Chat data: %@", chatData);
     
-    NSString *sentTime = [[chatData valueForKey:@"sentTime"]substringToIndex:10];
+    NSString *name = [chatData valueForKey:@"name"];
+    NSLog(@"Name %@", name);
+    if(name && name != [NSNull null]) {
+        [cell.chatName setText:name];
+    } else {
+        [cell.chatName setText:[NSString stringWithFormat:@"Chat %ld", indexPath.row + 1]];
+    }
+    NSString *lastMessage = [chatData valueForKey:@"lastMessage"];
+    if(lastMessage && lastMessage != [NSNull null]) {
+        [cell.chatMsg setText:lastMessage];
+    }
+    NSString *sentTime = [chatData valueForKey:@"sentTime"];
+    if(sentTime && sentTime != [NSNull null]) {
+        sentTime = [sentTime substringToIndex:10];
+    }
 
     [cell.chatDate setText:sentTime];
     

@@ -16,7 +16,7 @@
 +(DBManager*)getInstance;
 -(void)insertDummyData;
 -(void)createChat:(NSString*)name participants:(NSArray*)participants;
--(NSMutableArray*)getMessages:(int)chatId;
+-(NSMutableArray*)getMessages:(NSInteger)chatId;
 -(NSMutableArray*)getChats;
 -(void)insertUser:(Contact*)user;
 -(void)insertUserContact:(int)userIdMain userIdFriend:(int)userFriendId;

@@ -199,13 +199,13 @@ static Contact *thisUser = nil;
     sqlite3_close(database);
 }
 
--(NSMutableArray *)getMessages:(int)chatId {
+-(NSMutableArray *)getMessages:(NSInteger)chatId {
     NSMutableArray *messages = [[NSMutableArray alloc] init];
     if(sqlite3_open([[self dataFilePath] UTF8String], &database) != SQLITE_OK) {
         sqlite3_close(database);
         NSAssert(0, @"Failed to open database");
     }
-    NSString *queryMessages = [NSString stringWithFormat:@"SELECT messages.message, messages.sent_time, messages.user_id_from, users.username FROM messages INNER JOIN users ON users.id = messages.user_id_from WHERE messages.chat_id = %d", chatId];
+    NSString *queryMessages = [NSString stringWithFormat:@"SELECT messages.message, messages.sent_time, messages.user_id_from, users.username FROM messages INNER JOIN users ON users.id = messages.user_id_from WHERE messages.chat_id = %ld", chatId];
     if(sqlite3_prepare_v2(database, [queryMessages UTF8String], -1, &stmt, nil) == SQLITE_OK) {
         while (sqlite3_step(stmt) == SQLITE_ROW) {
             Message *m = [[Message alloc] init];

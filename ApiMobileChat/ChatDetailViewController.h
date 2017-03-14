@@ -18,5 +18,6 @@
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (strong, nonatomic) NSMutableArray *messages;
 @property (strong, nonatomic) UILabel *emptyDataText;
-@property (assign, nonatomic) NSInteger *chatId;
+@property (assign, nonatomic) NSInteger chatId;
+@property (strong, nonatomic) NSTimer *timer;
 @end
