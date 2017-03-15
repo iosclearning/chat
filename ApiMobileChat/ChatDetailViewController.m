@@ -82,8 +82,8 @@
     NSDictionary *parameters = @{
                                     @"MessageText": message.message,
                                     @"UserIdFrom": [NSNumber numberWithInt:[DBManager getInstance].currentUser.userId],
-                                    @"UserId": [NSNumber numberWithInt:Contact.selectedContact.userId],
-                                    @"ChatsId": [NSNumber numberWithInt:Chat.selectedChat.id]
+                                    @"UserId": [NSNumber numberWithInt:0],
+                                    @"ChatsId": [NSNumber numberWithInteger:self.chatId]
                                  };
     NSData *postData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", Common.ApiUrl, @"message/sendMessage"]]
@@ -105,7 +105,6 @@
                                                     }}];
     [dataTask resume];
     
-    NSLog(@"Chat id %d", Chat.selectedChat.id);
     NSLog(@"Current user id %d", [[DBManager getInstance] currentUser].userId);
     
     [self.messages addObject:message];

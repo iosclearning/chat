@@ -10,6 +10,7 @@
 #import "Contact.h"
 #import "DBManager.h"
 #import "Common.h"
+#import "ChatDetailViewController.h"
 
 static NSString *pCellIdentifier = @"Cell";
 
@@ -176,7 +177,10 @@ static NSString *pCellIdentifier = @"Cell";
         
         [[DBManager getInstance] createChat:chatName participants:participants];
         
-        [self.navigationController pushViewController:controller animated:YES];
+        ChatDetailViewController *ctrl = [self.storyBoard instantiateViewControllerWithIdentifier:@"ChatDetailViewBoard"];
+
+        ctrl.chatId = Chat.selectedChat.id;
+        [self.navigationController pushViewController:ctrl animated:YES];
     }];
     
     // Visible controls and colors on alert
