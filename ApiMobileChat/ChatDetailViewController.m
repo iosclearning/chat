@@ -200,7 +200,7 @@
 
 - (void)getMessagesFromServer:(NSTimer*)timer {
     NSDictionary *headers = @{ @"content-type": @"application/json" };
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%ld", Common.ApiUrl, @"chats/getChatDetails?chatId=", self.chatId]]
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%ld%@%d", Common.ApiUrl, @"chats/GetChatDetails?chatId=", self.chatId, @"&userId=", [DBManager getInstance].currentUser.userId]]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:10.0];
     [request setHTTPMethod:@"GET"];
@@ -216,18 +216,17 @@
                                                         // Development environment.
                                                         NSLog(@"Error%@", error);
                                                     } else {
-                                                        NSDictionary *detailedData = [NSJSONSerialization JSONObjectWithData:data                                   options:0                                                                                                 error:NULL];
-//                                                        NSArray *messages = [NSJSONSerialization JSONObjectWithData:data                                   options:0                                                                                                 error:NULL];
-                                                        NSArray *messages = [detailedData objectForKey:@"messages"];
-                                                        NSLog(@"messages\n%@", messages);
-                                                        for (int i = 0; i < messages.count; i++) {
+                                                        NSDictionary *chatData = [NSJSONSerialization JSONObjectWithData:data                                   options:0                                                                                                 error:NULL];
+                                                        NSArray *serverMessages = chatData[@"messages"];
+                                                        
+                                                        NSLog(@"Server messages: %@", serverMessages);
+                                                        for (int i = 0; i < serverMessages.count; i++) {
                                                             Message *message = [[Message alloc] init];
-                                                            message.message = messages[i][@"messageText"];
-                                                            message.sentTime = [NSString stringWithFormat:@"%@", messages[i][@"sentTime"]];
-                                                            message.userIdFrom = messages[i][@"userIdFrom"];;
-                                                            message.chatId = messages[i][@"chatsId"];
+                                                            message.message = serverMessages[i][@"messageText"];
+                                                            message.sentTime = [NSString stringWithFormat:@"%@", serverMessages[i][@"sentTime"]];
+                                                            message.userIdFrom = [serverMessages[i][@"userIdFrom"] intValue];                                                   message.chatId = [chatData[@"id"] intValue];
                                                             [self.messages addObject:message];
-                                                            
+                                                            [[DBManager getInstance] insertMessage:message];
 //                                                           [[DBManager getInstance] insertMessage:message];
                                                             
                                                             NSArray *insertIndexPaths = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0]];
