@@ -201,11 +201,13 @@
 
 - (void)getMessagesFromServer:(NSTimer*)timer {
     NSDictionary *headers = @{ @"content-type": @"application/json" };
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%ld", Common.ApiUrl, @"message/GetMessages?chatId=", self.chatId]]
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%ld", Common.ApiUrl, @"chats/getChatDetails?chatId=", self.chatId]]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:10.0];
     [request setHTTPMethod:@"GET"];
     [request setAllHTTPHeaderFields:headers];
+    
+    NSLog(@"zajimov request je %@",request);
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
                                                 completionHandler:^(NSData *data,
@@ -215,17 +217,19 @@
                                                         // Development environment.
                                                         NSLog(@"Error%@", error);
                                                     } else {
-                                                        NSArray *messages = [NSJSONSerialization JSONObjectWithData:data                                   options:0                                                                                                 error:NULL];
+                                                        NSDictionary *detailedData = [NSJSONSerialization JSONObjectWithData:data                                   options:0                                                                                                 error:NULL];
+//                                                        NSArray *messages = [NSJSONSerialization JSONObjectWithData:data                                   options:0                                                                                                 error:NULL];
+                                                        NSArray *messages = [detailedData objectForKey:@"messages"];
                                                         NSLog(@"messages\n%@", messages);
                                                         for (int i = 0; i < messages.count; i++) {
                                                             Message *message = [[Message alloc] init];
                                                             message.message = messages[i][@"messageText"];
                                                             message.sentTime = [NSString stringWithFormat:@"%@", messages[i][@"sentTime"]];
-                                                            message.userIdFrom = 4;
+                                                            message.userIdFrom = messages[i][@"userIdFrom"];;
                                                             message.chatId = messages[i][@"chatsId"];
                                                             [self.messages addObject:message];
                                                             
-                                                            [[DBManager getInstance] insertMessage:message];
+//                                                           [[DBManager getInstance] insertMessage:message];
                                                             
                                                             NSArray *insertIndexPaths = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0]];
                                                             
