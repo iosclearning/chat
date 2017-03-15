@@ -82,8 +82,8 @@
     NSDictionary *parameters = @{
                                     @"MessageText": message.message,
                                     @"UserIdFrom": [NSNumber numberWithInt:[DBManager getInstance].currentUser.userId],
-                                    @"UserId": [NSNumber numberWithInt:Contact.selectedContact.userId],
-                                    @"ChatsId": [NSNumber numberWithInt:Chat.selectedChat.id]
+                                    @"UserId": [NSNumber numberWithInt:0],
+                                    @"ChatsId": [NSNumber numberWithInteger:self.chatId]
                                  };
     NSData *postData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", Common.ApiUrl, @"message/sendMessage"]]
@@ -105,7 +105,6 @@
                                                     }}];
     [dataTask resume];
     
-    NSLog(@"Chat id %d", Chat.selectedChat.id);
     NSLog(@"Current user id %d", [[DBManager getInstance] currentUser].userId);
     
     [self.messages addObject:message];
@@ -201,7 +200,7 @@
 
 - (void)getMessagesFromServer:(NSTimer*)timer {
     NSDictionary *headers = @{ @"content-type": @"application/json" };
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%ld", Common.ApiUrl, @"message/GetMessages?chatId=", self.chatId]]
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%ld%@%d", Common.ApiUrl, @"chats/GetChatDetails?chatId=", self.chatId, @"&userId=", [DBManager getInstance].currentUser.userId]]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:10.0];
     [request setHTTPMethod:@"GET"];
@@ -215,14 +214,15 @@
                                                         // Development environment.
                                                         NSLog(@"Error%@", error);
                                                     } else {
-                                                        NSArray *messages = [NSJSONSerialization JSONObjectWithData:data                                   options:0                                                                                                 error:NULL];
-                                                        NSLog(@"messages\n%@", messages);
-                                                        for (int i = 0; i < messages.count; i++) {
+                                                        NSDictionary *chatData = [NSJSONSerialization JSONObjectWithData:data                                   options:0                                                                                                 error:NULL];
+                                                        NSArray *serverMessages = chatData[@"messages"];
+                                                        
+                                                        NSLog(@"Server messages: %@", serverMessages);
+                                                        for (int i = 0; i < serverMessages.count; i++) {
                                                             Message *message = [[Message alloc] init];
-                                                            message.message = messages[i][@"messageText"];
-                                                            message.sentTime = [NSString stringWithFormat:@"%@", messages[i][@"sentTime"]];
-                                                            message.userIdFrom = 4;
-                                                            message.chatId = messages[i][@"chatsId"];
+                                                            message.message = serverMessages[i][@"messageText"];
+                                                            message.sentTime = [NSString stringWithFormat:@"%@", serverMessages[i][@"sentTime"]];
+                                                            message.userIdFrom = [serverMessages[i][@"userIdFrom"] intValue];                                                   message.chatId = [chatData[@"id"] intValue];
                                                             [self.messages addObject:message];
                                                             
                                                             [[DBManager getInstance] insertMessage:message];

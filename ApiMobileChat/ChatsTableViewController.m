@@ -168,7 +168,7 @@ static NSString *pCellIdent = @"ChatsCell";
     ChatDetailViewController *controller = [self.storyBoard instantiateViewControllerWithIdentifier:@"ChatDetailViewBoard"];
     NSString *idStr = [[self.chatsData objectAtIndex:indexPath.row] valueForKey:@"id"];
     controller.chatId = [idStr intValue];
-
+    
     Chat *chat = [_chatsData objectAtIndex:indexPath.row];
     Chat.selectedChat = chat;
     [self.navigationController pushViewController:controller animated:YES];
