@@ -42,7 +42,7 @@ static NSString *pCellIdent = @"ChatsCell";
                                                                                                          options:0
                                                                                                            error:NULL];
                                                         
-                                                        NSLog(@"Chats: %@", self.chatsData);
+//                                                        NSLog(@"Chats: %@", self.chatsData);
                                                         
                                                         NSLog(@"ChatsView data received.");
                                                         
@@ -123,26 +123,40 @@ static NSString *pCellIdent = @"ChatsCell";
     
     
     NSDictionary *chatData = [self.chatsData objectAtIndex:indexPath.row];
+    NSDictionary *messageData = [chatData objectForKey:@"message"];
+    BOOL *seen = [[messageData valueForKey:@"seen"] boolValue];
     
-    NSLog(@"Chat data: %@", chatData);
+//    NSLog(@"Chat data: %@", chatData);
+    
+ //   NSLog(@"Chat data: %@", seen);
     
     NSString *name = [chatData valueForKey:@"name"];
     NSLog(@"Name %@", name);
+    
     if(name && name != [NSNull null]) {
         [cell.chatName setText:name];
     } else {
         [cell.chatName setText:[NSString stringWithFormat:@"Chat %ld", indexPath.row + 1]];
     }
-    NSString *lastMessage = [chatData valueForKey:@"lastMessage"];
+    NSString *lastMessage = [messageData valueForKey:@"messageText"];
     if(lastMessage && lastMessage != [NSNull null]) {
         [cell.chatMsg setText:lastMessage];
     }
-    NSString *sentTime = [chatData valueForKey:@"sentTime"];
+    NSString *sentTime = [messageData valueForKey:@"sentTime"];
     if(sentTime && sentTime != [NSNull null]) {
         sentTime = [sentTime substringToIndex:10];
     }
 
     [cell.chatDate setText:sentTime];
+    
+    if (!seen) {
+    CAShapeLayer *circleLayer = [CAShapeLayer layer];
+    circleLayer.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(10, 10, 20, 20)].CGPath;
+    circleLayer.fillColor = [UIColor blueColor].CGColor;
+    circleLayer.strokeColor = [UIColor whiteColor].CGColor;
+    circleLayer.lineWidth = 1;
+    
+        [cell.contentView.layer addSublayer:circleLayer];}
     
 //    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"darthvader" ofType:@"jpg"];
 //    

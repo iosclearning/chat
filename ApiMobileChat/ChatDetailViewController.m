@@ -206,6 +206,8 @@
                                                        timeoutInterval:10.0];
     [request setHTTPMethod:@"GET"];
     [request setAllHTTPHeaderFields:headers];
+    
+    NSLog(@"zajimov request je %@",request);
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
                                                 completionHandler:^(NSData *data,
@@ -225,8 +227,8 @@
                                                             message.sentTime = [NSString stringWithFormat:@"%@", serverMessages[i][@"sentTime"]];
                                                             message.userIdFrom = [serverMessages[i][@"userIdFrom"] intValue];                                                   message.chatId = [chatData[@"id"] intValue];
                                                             [self.messages addObject:message];
-                                                            
                                                             [[DBManager getInstance] insertMessage:message];
+//                                                           [[DBManager getInstance] insertMessage:message];
                                                             
                                                             NSArray *insertIndexPaths = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0]];
                                                             
