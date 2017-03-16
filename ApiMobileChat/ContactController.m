@@ -151,7 +151,7 @@ static NSString *pCellIdentifier = @"Cell";
     UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){}];
     
     UIAlertAction *chatButton = [UIAlertAction actionWithTitle:@"Start conversation" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-        UIViewController *controller = [self.storyBoard instantiateViewControllerWithIdentifier:@"ChatDetailViewBoard"];
+        ChatDetailViewController *controller = [self.storyBoard instantiateViewControllerWithIdentifier:@"ChatDetailViewBoard"];
         
         NSArray *participants = @[@([DBManager getInstance].currentUser.userId), @(contact.userId)];
         NSString *chatName = [NSString stringWithFormat:@"%@ %@", contact.firstName, contact.lastName];
@@ -171,16 +171,17 @@ static NSString *pCellIdentifier = @"Cell";
                                                             // Development environment.
                                                             NSLog(@"Error%@", error);
                                                         } else {
+                                                            NSDictionary *chatData = [NSJSONSerialization JSONObjectWithData:data                            options:0 error:NULL];
+                                                            NSLog(@"data %@", chatData);
+                                                            NSLog(@"Chat id %d", [chatData[@"id"] intValue]);
+                                                            [[DBManager getInstance] createChat:[chatData[@"id"] intValue] name:chatName participants:participants];
                                                             
+                                                            controller.chatId = [chatData[@"id"] intValue];
+                                                            [self.navigationController pushViewController:controller animated:YES];
                                                         }}];
         [dataTask resume];
         
-        [[DBManager getInstance] createChat:chatName participants:participants];
         
-        ChatDetailViewController *ctrl = [self.storyBoard instantiateViewControllerWithIdentifier:@"ChatDetailViewBoard"];
-
-        ctrl.chatId = Chat.selectedChat.id;
-        [self.navigationController pushViewController:ctrl animated:YES];
     }];
     
     // Visible controls and colors on alert

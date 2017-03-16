@@ -105,6 +105,7 @@
                                                     }}];
     [dataTask resume];
     
+    NSLog(@"Current user id %ld", self.chatId);
     NSLog(@"Current user id %d", [[DBManager getInstance] currentUser].userId);
     
     [self.messages addObject:message];

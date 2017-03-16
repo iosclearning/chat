@@ -162,13 +162,12 @@ static Contact *thisUser = nil;
     sqlite3_close(database);
 }
 
--(void)createChat:(NSString *)name participants:(NSArray*)participants {
+-(void)createChat:(int)chatId name:(NSString *)name participants:(NSArray*)participants {
     if(sqlite3_open([[self dataFilePath] UTF8String], &database) != SQLITE_OK) {
         sqlite3_close(database);
         NSAssert(0, @"Failed to open database");
     }
     char *updateChat = "INSERT OR REPLACE INTO chat (id, name, is_group, created_date) VALUES (?, ?, ?, ?);";
-    int chatId = 1;
     if(sqlite3_prepare_v2(database, updateChat, -1, &stmt, nil) == SQLITE_OK) {
         sqlite3_bind_int(stmt, 1, chatId);
         sqlite3_bind_text(stmt, 2, [[NSString stringWithFormat:@"%@", name] UTF8String], -1, NULL);
