@@ -136,7 +136,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="40"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RjP-nR-M5g" id="CFj-eN-Vhv">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="39"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -327,10 +327,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="darthvader.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="jcZ-Cd-hs6">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ee1-YS-Joj">
                                 <rect key="frame" x="107" y="138" width="161" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -457,6 +453,10 @@
                                     <action selector="SaveChanges_Clicked:" destination="IZv-f2-YRa" eventType="touchUpInside" id="28Y-gS-52N"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="obiwan.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="xun-Vv-sx1">
+                                <rect key="frame" x="0.0" y="20" width="375" height="110"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -468,6 +468,7 @@
                         <outlet property="Password" destination="vK5-eD-ZNW" id="W5q-aq-ldc"/>
                         <outlet property="RepeatedPassword" destination="GoJ-Bb-C9Y" id="Ve8-XP-iyG"/>
                         <outlet property="Username" destination="387-Yt-VbG" id="g6h-HN-wwN"/>
+                        <outlet property="imageView" destination="xun-Vv-sx1" id="vUN-Je-y6q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aks-Zu-Ncf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -547,7 +548,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="104"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tsg-Z6-Vfq" id="Nzv-g1-g36">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="104"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="103"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pW1-tF-hhX">
@@ -604,6 +605,6 @@
         <image name="1485717128_icon-114-lock.png" width="128" height="128"/>
         <image name="1485717144_icon-115-lock-open.png" width="128" height="128"/>
         <image name="1487035692_05_phonebook.png" width="128" height="128"/>
-        <image name="darthvader.jpg" width="135" height="90"/>
+        <image name="obiwan.jpg" width="180" height="90"/>
     </resources>
 </document>

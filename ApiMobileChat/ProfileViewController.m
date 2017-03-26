@@ -25,16 +25,50 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    /*NSDictionary *headers = @{ @"content-type": @"application/json"};
+    
+    NSString *url = Common.ApiUrl;
+    
+    NSString *getURL = [NSString stringWithFormat:@"%@user/getUser?userId=%d", url, [DBManager getInstance].currentUser.userId];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:getURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    [request setHTTPMethod:@"GET"];
+    [request setAllHTTPHeaderFields:headers];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
+                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                    if (error) {
+                                                        NSLog(@"Error getting user data: %@", error);
+                                                    } else {
+                                                        self.chatsData = [NSJSONSerialization JSONObjectWithData:data
+                                                                                                         options:0
+                                                                                                           error:NULL];
+                                                        
+                                                        //                                                        NSLog(@"Chats: %@", self.chatsData);
+                                                        
+                                                        NSLog(@"ChatsView data received.");
+                                                        
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            [self.tableView reloadData];
+                                                            
+                                                        });
+                                                        
+                                                    }
+                                                }];
+    [dataTask resume];*/
+
     // Do any additional setup after loading the view.
     NSDictionary *headers = @{ @"content-type": @"application/json"};
-    NSDictionary *parameters = @{ @"accessToken": @"3dfc6702" };
-    NSLog(@"%@", [[DBManager getInstance] currentUser]);
-    NSData *postData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
+  
+    NSString *url = Common.ApiUrl;
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", Common.ApiUrl, @"user/getuserdata"]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
-    [request setHTTPMethod:@"POST"];
+    NSString *getURL = [NSString stringWithFormat:@"%@user/getUser?userId=%d", url, [DBManager getInstance].currentUser.userId];
+    NSLog(@"UUURL%@", getURL);
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:getURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    [request setHTTPMethod:@"GET"];
     [request setAllHTTPHeaderFields:headers];
-    [request setHTTPBody:postData];
     
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
@@ -43,16 +77,16 @@
                                                         NSLog(@"GREEESKA%@", error);
                                                     } else {
                                                         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                                                        //NSLog(@"AAAAAAA%@", data);
+                                                        
                                                         NSDictionary *userData = [NSJSONSerialization JSONObjectWithData:data
                                                                                                                  options:0
                                                                                                                    error:NULL];
-                                                        //NSString* temp = userData[@"firstName"];
                                                         
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
                                                         _firstName.text = userData[@"firstName"];
                                                         _lastName.text = userData[@"lastName"];
                                                         _username.text = userData[@"username"];
-                                                        _password.text = @"password";
+                                                        
                                                         if([userData[@"sex"]  isEqual: @"1"])
                                                         {
                                                             [_gender setSelectedSegmentIndex:1];
@@ -61,7 +95,7 @@
                                                         {
                                                             [_gender setSelectedSegmentIndex:0];
                                                         }
-                                                        
+                                                        });
                                                     }
                                                 }];
     [dataTask resume];
@@ -72,8 +106,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
+
+/*#pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -84,17 +118,28 @@
 
 - (IBAction)ChangeProfilePicture_Clicked:(id)sender
 {
-    //UIImagePickerController* picker = [[UIImagePickerController alloc] init];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        picker.allowsEditing = YES;
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        
+        [self presentViewController:picker animated:YES completion:NULL];
+    });
 }
-/*-(void)imagePickerController:(UIImagePickerController *) picker didFinishPickingMediaWithInfo:(nonnull NSDictionary<NSString *,id> *)info
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
-    UIImage* picture = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
+    self.imageView.image = chosenImage;
     
-    UIImageView *pictureView = (UIImageView *)[
+    [picker dismissViewControllerAnimated:YES completion:NULL];
     
-}*/
+}
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+    
+}
 
 - (IBAction)SaveChanges_Clicked:(id)sender
 {
@@ -110,18 +155,18 @@
         
         return;
     }
-    
+    int id = [DBManager getInstance].currentUser.userId;
     NSDictionary *headers = @{ @"content-type": @"application/json" };
     NSDictionary *parameters = @{ @"firstName": _firstName.text,
                                   @"lastName": _lastName.text,
                                   @"sex": @1,
                                   @"username": _username.text,
                                   @"password": _password.text,
-                                  @"accessToken": @"3dfc6702" };
+                                  @"Id": [NSNumber numberWithInt:id] };
     
     NSData *postData = [NSJSONSerialization dataWithJSONObject:parameters options:0 error:nil];
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", Common.ApiUrl, @"user/updateuserdata"]]
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", Common.ApiUrl, @"user/updateuser"]]
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:10.0];
     [request setHTTPMethod:@"POST"];

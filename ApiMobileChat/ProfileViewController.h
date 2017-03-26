@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ProfileViewController : UIViewController
+@property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UITextField *FirstName;
 @property (weak, nonatomic) IBOutlet UITextField *LastName;
 @property (weak, nonatomic) IBOutlet UITextField *Username;
